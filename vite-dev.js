@@ -14,44 +14,14 @@
  * limitations under the License.
  */
 
-const envFlag = 'xiedejun-three' // xiedejun-aoSecond  xiedejun-three  盒子一代  盒子二代
+const envFlag = 'three'
 
 const targetMap = {
-  'xiedejun-aoFirst': {
-    port: 3000,
-    target: 'https://chuang2023.dev-space.eulix.xyz',
-    userUrlIdentify: 'cdoettk6'
-  },
-  'xiedejun-aoSecond': {
-    port: 3002,
-    target: 'https://dn6xd320.sit-space.eulix.xyz',
-    userUrlIdentify: 'bybw6n0v'
-  },
-  'xiedejun-three': {
+  'three': {
     port: 3000,
     target: 'https://bybw6n0v.dev-space.eulix.xyz/',
     userUrlIdentify: 'chuang2023'
-  },
-  'xiedejun-four': {
-    port: 3003,
-    target: 'https://dn6xd320.sit2-space.eulix.xyz',
-    userUrlIdentify: 'p5pirtst'
-  },
-  'disheng': {
-    port: 3000,
-    target: 'https://otfmnng2.dev-space.eulix.xyz',
-    userUrlIdentify: 'otfmnng2'
-  },
-  'luhao': {
-    port: 3000,
-    target: 'https://abs86ysy.sit-space.eulix.xyz',
-    userUrlIdentify: 'abs86ysy'
-  },
-  'liang': {
-    port: 3000,
-    target: 'https://om9gac9a.sit-space.eulix.xyz',
-    userUrlIdentify: 'om9gac9a'
-  },
+  }
 }
 
 
