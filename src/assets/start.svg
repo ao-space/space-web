@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>start</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0.11-相册-视频预览" transform="translate(-925.000000, -415.000000)">
+            <g id="分组-21" transform="translate(925.000000, 415.000000)">
+                <circle id="椭圆形" fill-opacity="0.302556818" fill="#000000" cx="35" cy="35" r="31.8181818"></circle>
+                <path d="M44.0019756,32.3996397 C46.2699275,33.8357635 46.2687003,36.1649575 44.0019756,37.6003044 L31.585829,45.4625191 C29.3178771,46.8986431 27.4793388,45.963535 27.4793388,43.3770112 L27.4793388,26.6229328 C27.4793388,24.0350147 29.3191043,23.102078 31.585829,24.5374248 L44.0019756,32.3996397 L44.0019756,32.3996397 Z" id="路径" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

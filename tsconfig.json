@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["ES2015", "dom"],
+    "jsx": "preserve"
+  },
+  "include": ["src/**/*", "./global.d.ts"],
+  "exclude": ["node_modules"]
+}

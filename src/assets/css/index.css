@@ -1,0 +1,127 @@
+/*
+ * Copyright (c) 2022 Institute of Software Chinese Academy of Sciences (ISCAS)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+#app {
+  font-size: 12px;
+  text-align: left;
+  font-family: PingFangSC-Regular,Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100% !important;
+}
+
+input,textarea{
+  font-family: PingFangSC-Regular,Arial, sans-serif !important;
+}
+
+::selection {
+  background: transparent;
+}
+::-moz-selection {
+  background: transparent;
+}
+
+.editabled-span::selection {
+  background: #eaf1ff !important;
+}
+.editabled-span::-moz-selection {
+  background: #eaf1ff !important;
+}
+.none {
+  display: none;
+}
+
+.el-header {
+  padding: 0;
+  color: rosybrown;
+}
+
+:root {
+  --m-color: #337aff;
+  --a-color-one: #eceef4;
+  --a-color-two: #f5f6fa;
+  --a-color-three: #ffffff;
+  --t-color-one: #85899c;
+  --t-color-two: #333333;
+}
+
+.el-upload--text {
+  height: 100% !important;
+  width: 100% !important;
+}
+.el-upload-dragger {
+  border: none !important;
+  background-color: transparent !important;
+  cursor: default !important;
+  height: 100% !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
+* 去除滚动条 firefox
+*/
+.clear-scrollbar {
+  scrollbar-width: none;
+}
+/*
+* 去除滚动条 chrome
+*/
+.clear-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.clear-float {
+  overflow: hidden;
+}
+
+.x-100 {
+  width: 100%;
+}
+
+.y-100 {
+  height: 100%;
+}
+
+.color-blue{
+  color: #337AFF;
+}
+
+.color-grey{
+  color: #85899C;
+}
+
+.color-red{
+  color: #F6222D;
+}
+
+.clear-black{
+  color: #464956;
+}
+
+.clear-43d9af{
+    color:#43D9AF
+}

@@ -1,0 +1,29 @@
+diff --git a/node_modules/video.js/dist/video.es.js b/node_modules/video.js/dist/video.es.js
+index aa14746..a355ad1 100644
+--- a/node_modules/video.js/dist/video.es.js
++++ b/node_modules/video.js/dist/video.es.js
+@@ -215,7 +215,7 @@ const LogByTypeFactory = (name, log) => (type, level, args) => {
+   if (!fn || !lvl || !lvlRegExp.test(type)) {
+     return;
+   }
+-  fn[Array.isArray(args) ? 'apply' : 'call'](window$1.console, args);
++  //fn[Array.isArray(args) ? 'apply' : 'call'](window$1.console, args);
+ };
+ function createLogger$1(name) {
+   // This is the private tracking variable for logging level.
+@@ -2006,11 +2006,11 @@ function fixEvent(event) {
+ 
+     // Stop the default browser action
+     event.preventDefault = function () {
+-      if (old.preventDefault) {
+-        old.preventDefault();
+-      }
++      // if (old.preventDefault) {
++      //   old.preventDefault();
++      // }
+       event.returnValue = false;
+-      old.returnValue = false;
++      //old.returnValue = false;
+       event.defaultPrevented = true;
+     };
+     event.defaultPrevented = false;

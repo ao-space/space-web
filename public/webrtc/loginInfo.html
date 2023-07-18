@@ -1,0 +1,120 @@
+<!--
+  ~ Copyright (c) 2022 Institute of Software Chinese Academy of Sciences (ISCAS)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+  <head>
+    <meta charset="UTF-8" />
+    <title>傲空间</title>
+  </head>
+
+  <script>
+    var Cookie = {
+      set: function (name, value, days, outDomain) {
+        var domain, domainParts, date, expires, host
+
+        if (days) {
+          date = new Date()
+
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
+
+          expires = '; expires=' + date.toGMTString()
+        } else {
+          expires = ''
+        }
+
+        host = location.host
+
+        if (host.split('.').length === 1) {
+          document.cookie = name + '=' + value + expires + '; path=/'
+        } else {
+          if (/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d+)?/.test(host)) {
+            // host =>  192.168.124.19:3000
+            domain = host.split(':')[0]
+          } else {
+            domainParts = host.split('.')
+
+            domainParts.shift()
+
+            domain = outDomain ? outDomain : '.' + domainParts.join('.')
+          }
+
+          document.cookie = name + '=' + value + expires + '; path=/; domain=' + domain
+          // check if cookie was successfuly set to the given domain
+
+          if (Cookie.get(name) == null || Cookie.get(name) != value) {
+
+            console.log(name + '=' + value + expires + '; path=/; domain=' + domain)            
+            document.cookie = name + '=' + value + expires + '; path=/; domain=' + domain
+          }
+        }
+      },
+
+      get: function (name) {
+        var nameEQ = name + '='
+
+        var ca = document.cookie.split(';')
+
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i]
+
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length)
+          }
+
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length)
+        }
+
+        return null
+      },
+
+      perase: function (name) {
+        Cookie.set(name, '', -1, '')
+      }
+    }
+
+    var url = new URL(window.location.href)
+    if (url.searchParams.has('eluoxaccessToken')) {
+      url.searchParams.forEach(function (value, key) {
+        if (value) {
+          localStorage.setItem(key, value)
+          if (key == 'client_uuid') {
+            Cookie.set('client_uuid', value, 30)
+          }
+        }
+      })
+      window.location.href = '/space/index.html'
+    }
+    window.addEventListener(
+      'message',
+      function (event) {
+        if (event.data) {
+          for (var key in event.data) {
+            if (event.data[key]) {
+              localStorage.setItem(key, event.data[key])
+              if (key == 'client_uuid') {
+                Cookie.set('client_uuid', event.data[key], 30,window.location.host)
+                console.log(document.cookie)
+              }
+            }
+          }
+          window.parent.postMessage({ code: 200 }, '*')
+        }
+      },
+      true
+    )
+  </script>
+</html>
