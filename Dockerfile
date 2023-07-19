@@ -12,33 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#FROM nginx:1.21.3-alpine
+FROM node:16.14.2 as builder
+
+COPY . .
+RUN npm install && npm run build && npm run buildsingle
+
 FROM openresty/openresty:1.21.4.1-4-bullseye-fat
 
-ARG CI_COMMIT_SHA
-ARG CI_PIPELINE_ID
-ENV CI_COMMIT_SHA=${CI_COMMIT_SHA}
-ENV CI_PIPELINE_ID=${CI_PIPELINE_ID}
 ENV TZ=Asia/Shanghai
 
-# RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors-ssl.aliyuncs.com/g' /etc/apk/repositories \
-#     && apk --no-cache add tzdata \
-#     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-#     && echo "Asia/Shanghai" > /etc/timezone 
 RUN rm -rf /etc/nginx/conf.d
 RUN mkdir -p /var/log/nginx/
-#COPY nginx.conf /etc/nginx/nginx.conf
-COPY nginx.conf.template  /nginx.conf.template
-COPY verify_access_token.lua /etc/nginx/verify_access_token.lua
-COPY cert.crt /etc/nginx/certs/cert.pem
-COPY private.key /etc/nginx/certs/cert.key
-
-RUn mkdir -p /opt/eulixspace-web/space/ /opt/eulixspace-web/share/
-
-ADD dist/ /opt/eulixspace-web/space/
-ADD shareDist/ /opt/eulixspace-web/share/
-
-COPY docker-entrypoint.sh /
+COPY --from=builder nginx.conf.template  /nginx.conf.template
+COPY --from=builder verify_access_token.lua /etc/nginx/verify_access_token.lua
+COPY --from=builder cert.crt /etc/nginx/certs/cert.pem
+COPY --from=builder private.key /etc/nginx/certs/cert.key
+RUN mkdir -p /opt/eulixspace-web/space/ /opt/eulixspace-web/share/
+COPY --from=builder dist /opt/eulixspace-web/space
+COPY --from=builder shareDist /opt/eulixspace-web/share
+COPY --from=builder docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
