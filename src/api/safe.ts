@@ -17,87 +17,12 @@
 import { post } from './network.js'
 import { urlConfig } from '@/config/networkConfig'
 import { FileParam, RealCallRequest } from '@/api/model'
-import { strToHex,myBrowser } from '@/utils/help'
+import { myBrowser } from '@/utils/help'
 import { keyMap } from '@/utils/constant'
 let baseUrl = urlConfig.baseUrl
 
-/**
- * 验证安全邮箱
- */
-export function validateEmail(email,emailPasswd, emailConfig) {
-  let params = {
-    emailAccount: email,
-    emailPasswd: strToHex(emailPasswd),
-    clientUuid:localStorage.getItem(keyMap.clientUUID),
-    host: emailConfig.host,
-    port: emailConfig.port,
-    sslEnable: emailConfig.sslEnable,
-  }
 
-  let request: RealCallRequest<FileParam, any> = {
-    apiVersion: 'v1',
-    apiName: 'security_email_verify',
-    serviceName: 'eulixspace-account-service',
-    entity: params,
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, request)
-}
 
-/**
- * 通过密码设置安全邮箱
- */
-export function modifyEmail(token,email,emailPasswd, emailConfig) {
-  let params = {
-    securityToken: token,
-    emailAccount: email,
-    emailPasswd: strToHex(emailPasswd),
-    host: emailConfig.host,
-    port: emailConfig.port,
-    sslEnable: emailConfig.sslEnable,
-  }
-
-  let request: RealCallRequest<FileParam, any> = {
-    apiVersion: 'v1',
-    apiName: 'security_email_modify_auther',
-    serviceName: 'eulixspace-account-service',
-    entity: params,
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, request)
-}
-
-/**
- * 通过密码设置安全邮箱
- */
-export function bindEmail(token,email,emailPasswd, emailConfig) {
-  let params = {
-    securityToken: token,
-    emailAccount: email,
-    emailPasswd: strToHex(emailPasswd),
-    host: emailConfig.host,
-    port: emailConfig.port,
-    sslEnable: emailConfig.sslEnable,
-  }
-
-  let request: RealCallRequest<FileParam, any> = {
-    apiVersion: 'v1',
-    apiName: 'security_email_set_auther',
-    serviceName: 'eulixspace-account-service',
-    entity: params,
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, request)
-}
-
-/**
- * 获取绑定的邮箱
- */
-export function getBindEmail() {
-  let request: RealCallRequest<FileParam, any> = {
-    apiVersion: 'v1',
-    apiName: 'security_email_setting',
-    serviceName: 'eulixspace-account-service',
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, request)
-}
 
 /**
  * 发送手机确认
@@ -190,18 +115,7 @@ export function passwdVerify(password) {
   return post(`${baseUrl}/space/v1/api/gateway/call`, request)
 }
 
-/**
- * 获取邮箱配置
- */
-export function getEmailConfig() {
 
-  let request: RealCallRequest<FileParam, any> = {
-    apiVersion: 'v1',
-    apiName: 'security_email_configurations',
-    serviceName: 'eulixspace-account-service',
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, request)
-}
 
 /**
  * 获取全部消息
