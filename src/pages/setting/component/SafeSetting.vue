@@ -129,50 +129,6 @@
               </div>
             </div>
           </div>
-          <!--二选一 选择-->
-          <div v-if="type === 3">
-            <div class="ml30 font16" style="color: #464956">
-              {{ $t('safe.val_choose') }}：
-            </div>
-            <div class="content">
-              <div style="width: 400px">
-                <div
-                  class="choose"
-                  :style="{ 'background-color': validateTypeEmail ? '#eaf1ff' : '#FAFAFA' }"
-                >
-                  <div class="y-center">
-                    <img src="@/assets/f1.png" />
-                    <div class="ml30">
-                      <div class="p8 font12" style="color: #85899c">{{ $t('safe.choose_one') }}</div>
-                      <div class="p8" style="color: #333333">{{ $t('safe.choose_email') }}</div>
-                    </div>
-                  </div>
-                  <div class="y-center mr-30 ml-auto">
-                    <el-checkbox v-model="validateTypeEmail" size="large" @change="chooseEmail" />
-                  </div>
-                </div>
-                <div
-                  class="choose mt20"
-                  :style="{ 'background-color': validateTypePassword ? '#eaf1ff' : '#FAFAFA' }"
-                >
-                  <div class="y-center">
-                    <img src="@/assets/f2.png" />
-                    <div class="ml30">
-                      <div class="p8 font12" style="color: #85899c">{{ $t('safe.choose_two') }}</div>
-                      <div class="p8" style="color: #333333">{{ $t('safe.safe_password_val') }}</div>
-                    </div>
-                  </div>
-                  <div class="y-center mr-30 ml-auto">
-                    <el-checkbox
-                      v-model="validateTypePassword"
-                      size="large"
-                      @change="choosePassword"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <!-- 手机确认 -->
           <div v-if="type === 4">
             <div class="content">
@@ -243,13 +199,6 @@
             <div class="button-blue ml-20" v-if="type == 1" @click="settingPassword">{{ $t('buttons.verification') }}</div>
             <div class="button-blue ml-20" v-if="type == 10" @click="settingPassword">{{ $t('buttons.common_ok') }}</div>
             <div
-              class="button-blue ml-20"
-              v-if="type == 0 || type == 7 || type == 8 || type == 9"
-              @click="validateEmail"
-            >
-              {{ $t('buttons.verification') }}
-            </div>
-            <div
               class="button-white ml-20"
               v-if="type == 5 || type == 6 || type == 12 || type == 13 || type == 14 || type == 15"
               @click="close"
@@ -270,13 +219,9 @@ import { ElLoading } from 'element-plus'
 import {
   passwdVerify,
   passwdModify,
-  bindEmail,
-  getEmailConfig,
   queryPhoneConfirm,
   sendPhoneConfirm,
   getBindEmail,
-  validateEmail,
-  modifyEmail,
   resetModify
 } from '@/api/safe'
 import { isAdmin } from '@/business/login/loginUtils'
@@ -322,12 +267,6 @@ export default {
       this.isAdmin = true
       this.getBindEmail()
     }
-    //获取邮箱默认配置
-    getEmailConfig().then(function (result) {
-      if (result.code === 'ACC-200') {
-        self.emailConfigAll = result.results.configurations
-      }
-    })
   },
   methods: {
     emitChangeEvent() {
@@ -346,14 +285,6 @@ export default {
       })
     },
     init() {
-      if (this.mode == 'bindEmail') {
-        this.title = this.$t('safe.bound_email')
-        this.type = 2 //2
-      }
-      if (this.mode == 'changeEmail') {
-        this.title = this.$t('safe.change_email')
-        this.type = 3
-      }
       if (this.mode == 'changePassword') {
         this.title = this.$t('safe.change_password')
         this.type = 4 //4
@@ -380,98 +311,6 @@ export default {
       this.emailHiddenAccount = ''
       this.emailPasswd = ''
       this.emailConfig = { sslEnable: true }
-    },
-    validateEmail() {
-      if (this.isNotEmail(this.emailAccount)) {
-        this.passwdError = this.$t('safe.email_format_error')
-        return
-      }
-
-      if (!this.emailPasswd) {
-        this.passwdError = this.$t('safe.please_email')
-        return
-      }
-
-      if (!this.emailConfig.host || !this.emailConfig.port) {
-        this.showEmailServer = true
-        this.passwdError = this.$t('safe.please_server')
-        return
-      }
-
-      let self = this
-      this.loading = ElLoading.service({
-        target: '.dialogBody',
-        text: this.$t('safe.val_tip')
-      })
-
-      self.passwdError = false
-      //绑定邮箱
-      if (this.type === 0) {
-        bindEmail(this.securityToken, this.emailAccount, this.emailPasswd, this.emailConfig).then(
-          function (result) {
-            self.loading.close()
-            if (result.code === 'ACC-200') {
-              //绑定邮箱和更换邮箱
-              self.emitChangeEvent()
-              self.close()
-              ElMessage({
-                message: self.$t('safe.bound_email_success'),
-                type: 'success',
-                center: true
-              })
-            } else {
-              self.emailErrorResult(result)
-            }
-          }
-        )
-      }
-
-      //验证邮箱获取邮箱token
-      if (this.type === 7 || this.type === 9) {
-        validateEmail(this.emailAccount, this.emailPasswd, this.emailConfig).then(function (
-          result
-        ) {
-          self.loading.close()
-          if (result.code === 'ACC-200') {
-            //获取邮箱token 修改邮箱
-            if (self.type == 7) {
-              self.securityToken = result.results.securityToken
-              self.emailAccount = ''
-              self.emailPasswd = ''
-              self.emailAccountChange()
-              self.type = 8
-            }
-            //获取邮箱token 修改密码
-            if (self.type == 9) {
-              self.emailToken = result.results.securityToken
-              self.type = 10
-            }
-          } else {
-            self.emailErrorResult(result)
-          }
-        })
-      }
-
-      //修改邮箱
-      if (this.type === 8) {
-        modifyEmail(this.securityToken, this.emailAccount, this.emailPasswd, this.emailConfig).then(
-          function (result) {
-            self.loading.close()
-            if (result.code === 'ACC-200') {
-              //绑定邮箱和更换邮箱
-              self.emitChangeEvent()
-              self.close()
-              ElMessage({
-                message: self.$t('safe.change_email_success'),
-                type: 'success',
-                center: true
-              })
-            } else {
-              self.emailErrorResult(result)
-            }
-          }
-        )
-      }
     },
     emailErrorResult(result) {
       if (result.code === 'ACC-4051') {
@@ -665,13 +504,6 @@ export default {
         }
       })
     },
-    showEmailServerClick() {
-      if (this.showEmailServer) {
-        this.showEmailServer = false
-      } else {
-        this.showEmailServer = true
-      }
-    },
     closeDialog() {
       clearTimeout(this.phoneConfirmTimes)
       clearTimeout(this.queryPhoneConfirmTimes)
@@ -693,60 +525,17 @@ export default {
     resetPasswd() {
       let self = this
       self.passwdError = ''
-      getBindEmail().then(function (result) {
-        if (result.code === 'ACC-200') {
-          self.emailHiddenAccount = self.getHiddenEmail(result.results.emailAccount)
-          self.type = 9
-        } else {
-          self.type = 12
-        }
-      })
+
     },
-    getHiddenEmail(email) {
-      let index = email.indexOf('@')
-      let hiddenEmail
-      let num = 3
-      if (index > 3) {
-        hiddenEmail = email.substring(0, 3)
-      } else {
-        num = 1
-        hiddenEmail = email.substring(0, 1)
-      }
-      for (let i = num; i < index; i++) {
-        hiddenEmail += '*'
-      }
-      hiddenEmail += email.substring(index)
-      return hiddenEmail
-    },
+
     chooseType() {
       let self = this
-      if (self.validateTypeEmail) {
-        getBindEmail().then(function (result) {
-          if (result.code === 'ACC-200') {
-            self.emailHiddenAccount = self.getHiddenEmail(result.results.emailAccount)
-            self.type = 7
-          }
-        })
-      }
       if (self.validateTypePassword) {
         self.type = 11
       }
     },
     gotoSetp(type) {
       this.type = type
-    },
-    emailAccountChange() {
-      let index = this.emailAccount.indexOf('@')
-      if (index > 0) {
-        let hostname = this.emailAccount.substring(index + 1).trim()
-        if (this.emailConfigAll[hostname]) {
-          this.emailConfig.host = this.emailConfigAll[hostname].servers.smtp.host
-          this.emailConfig.port = this.emailConfigAll[hostname].servers.smtp.port
-          this.emailConfig.sslEnable = this.emailConfigAll[hostname].servers.smtp.sslEnable
-        }
-      } else {
-        this.emailConfig = { sslEnable: true }
-      }
     },
     inputCode(codeArr) {
       this.oldPasswd = codeArr.join('')
