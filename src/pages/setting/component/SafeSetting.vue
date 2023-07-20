@@ -298,22 +298,7 @@ export default {
       this.emailPasswd = ''
       this.emailConfig = { sslEnable: true }
     },
-    emailErrorResult(result) {
-      if (result.code === 'ACC-4051') {
-        this.passwdError = this.$t('safe.already_bound_error')
-      } else if (result.code === 'ACC-4011') {
-        this.passwdError = this.$t('safe.email_error')
-      } else if (result.code === 'ACC-4052') {
-        this.passwdError = this.$t('safe.email_timeout')
-      } else if (result.code === 'ACC-4053') {
-        //token验证失败
-        this.type = 14
-      } else if (result.code === 'GW-400') {
-        this.passwdError = this.$t('safe.email_format')
-      } else {
-        this.passwdError = this.$t('safe.request_fail')
-      }
-    },
+
     bindPhoneDisable() {
       clearTimeout(this.queryPhoneConfirmTimes)
       clearTimeout(this.phoneConfirmTimes)
