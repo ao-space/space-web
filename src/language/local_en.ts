@@ -216,7 +216,7 @@ export default {
     offline_success: 'Operation Succeeded',
     offline_fail: 'Operation Failed, error reason: {error}',
     space_id_error: 'The space ID is duplicate, please re-enter',
-    open_source:"Open Source Version", 
+    open_source:"Open Source", 
   },
   safe: {
     mail_desc:
