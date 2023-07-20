@@ -96,9 +96,7 @@
                 <el-row class="el-row-title" :gutter="10">
                   <el-col :span="8"></el-col>
                   <el-col :span="16">
-                    <div class="color-blue pointer tl" @click="resetPasswd()" v-if="type === 1">
-                      {{ $t('safe.forgot_password') }}
-                    </div>
+
                   </el-col>
                 </el-row>
               </div>
@@ -287,7 +285,7 @@ export default {
     init() {
       if (this.mode == 'changePassword') {
         this.title = this.$t('safe.change_password')
-        this.type = 4 //4
+        this.type = 4
         this.sendPhoneConfirm()
       }
       this.reset()
