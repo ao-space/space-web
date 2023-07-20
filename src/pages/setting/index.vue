@@ -33,17 +33,16 @@
         <div class="flex">
           <div class="y-center device">
             <div v-if="deviceModelNumber === 0" class="zhanwei"></div>
-            <img src="@/assets/device.png" v-if="deviceModelNumber === 100" />
-            <img src="@/assets/device-two.png" v-if="deviceModelNumber >= 200" />
+            <img src="@/assets/device.png"  />
             <div style="">
-              <div class="fw-b font-16 mt-5 mb-12">{{ deviceVersion.deviceName }}</div>
-              <div class="flex">
-                <div class="color-85899c lh-20" style="width: 220px">
-                  <div class="font-12">{{ $t('setting.product_mode') }}</div>
+              <div class="fw-b font-16 mt-5 mb-12">{{ `${$t('router.ao_space')}（${$t('setting.open_source')}）` }}</div>
+              <div class="color-85899c lh-20" style="width: 220px">
+                  <div class="font-12">{{ $t('setting.product_sn') }}</div>
                   <div class="color-333333 fw-b">
-                    {{ deviceVersion.productModel ? deviceVersion.productModel : '- -' }}
+                    {{ deviceVersion.snNumber ? deviceVersion.snNumber : '- -' }}
                   </div>
                 </div>
+              <div class="flex">
                 <div class="color-85899c lh-20">
                   <div class="font-12">{{ $t('setting.total') }}</div>
                   <div class="color-333333 fw-b">{{ spaceSizeTotal }}</div>
@@ -66,12 +65,6 @@
                 </div>
               </div>
               <div class="flex mt-10">
-                <div class="color-85899c lh-20" style="width: 220px">
-                  <div class="font-12">{{ $t('setting.product_sn') }}</div>
-                  <div class="color-333333 fw-b">
-                    {{ deviceVersion.snNumber ? deviceVersion.snNumber : '- -' }}
-                  </div>
-                </div>
                 <div class="color-85899c lh-20">
                   <div class="font-12">{{ $t('setting.bound_device') }}</div>
                   <div class="color-333333 fw-b">{{ user.phoneModel }}</div>
@@ -309,7 +302,7 @@ export default {
 }
 .device {
   min-width: 700px;
-  height: 162px;
+  min-height: 182px;
   background: #eff4ff;
   border-radius: 6px;
   padding: 20px 30px;

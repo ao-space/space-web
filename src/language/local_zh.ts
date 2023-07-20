@@ -209,6 +209,7 @@ export default {
     offline_success: '操作成功',
     offline_fail: '操作失败,错误原因: {error}',
     space_id_error: '空间标识重复，请重新输入',
+    open_source:"开源版",
   },
   safe: {
     mail_desc:

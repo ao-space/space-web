@@ -215,7 +215,8 @@ export default {
     offline_confirm: 'Are you sure you want to offline the terminal?',
     offline_success: 'Operation Succeeded',
     offline_fail: 'Operation Failed, error reason: {error}',
-    space_id_error: 'The space ID is duplicate, please re-enter'
+    space_id_error: 'The space ID is duplicate, please re-enter',
+    open_source:"Open Source Version", 
   },
   safe: {
     mail_desc:
