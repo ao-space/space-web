@@ -219,7 +219,6 @@ import {
   passwdModify,
   queryPhoneConfirm,
   sendPhoneConfirm,
-  getBindEmail,
   resetModify
 } from '@/api/safe'
 import { isAdmin } from '@/business/login/loginUtils'
@@ -255,7 +254,6 @@ export default {
       emailConfigAll: {},
       clientUuidBinder: '',
       isAdmin: false,
-      oldEmailAccount: ''
     }
   },
   mounted() {
@@ -263,25 +261,16 @@ export default {
 
     if (isAdmin()) {
       this.isAdmin = true
-      this.getBindEmail()
     }
   },
   methods: {
     emitChangeEvent() {
-      this.getBindEmail()
     },
     showSafe(mode) {
       this.mode = mode
       this.isOpen = true
     },
-    getBindEmail() {
-      let safe = this
-      getBindEmail().then(function (result) {
-        if (result.code === 'ACC-200') {
-          safe.oldEmailAccount = result.results.emailAccount
-        }
-      })
-    },
+
     init() {
       if (this.mode == 'changePassword') {
         this.title = this.$t('safe.change_password')
@@ -301,7 +290,6 @@ export default {
       this.showEmailServer = false
       this.securityToken = ''
       this.clientUuidBinder = ''
-      this.emailToken = ''
       this.oldPasswd = ''
       this.newPasswd = ''
       this.newDouPasswd = ''
