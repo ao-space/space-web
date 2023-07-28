@@ -30,7 +30,7 @@
 import eventBus from './utils/eventbus'
 import customDialog from '@/components/dialog.vue'
 import OutDialog from '@/business/messagePoll/outDialog.vue'
-
+import Vconsole from 'vconsole'
 // 小应用获得授权通信页面不需要 推送
 const unNeedOutDialogUrlArr = ['#/programAuthorize']
 
@@ -39,6 +39,9 @@ import QiehuanDialog from './components/qiehuanDialog.vue'
 export default {
   components: { customDialog, OutDialog, QiehuanDialog },
   name: 'App',
+  onmounted() {
+    new Vconsole()
+  },
   data() {
     let hash = window.location.hash
     let unNeed = unNeedOutDialogUrlArr.findIndex((item) => {

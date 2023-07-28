@@ -30,7 +30,6 @@ import store from '@/store'
 import installElementPlus from './plugins/element'
 import i18n from '@/language/index'
 import 'default-passive-events'
-import './utils/LogUtils'
 
 
 let app = createApp(App)

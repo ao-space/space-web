@@ -490,7 +490,7 @@ export let Cookie = {
   }
 }
 
-window.abcCookie = Cookie
+
 
 let  u = navigator.userAgent
 let  isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 //android终端
