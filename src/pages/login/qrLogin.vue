@@ -141,7 +141,7 @@ import { isMobile, chooseByLanguage } from "@/utils/help"
 import zhLogo from "@/assets/new_logo.png"
 import enLogo from "@/assets/英文登录页@2x.png"
 import { loginUtils } from "@/api/LoginUtils"
-import { getParamsFromUrl, isMobile } from "../../utils/help"
+import { getParamsFromUrl } from "../../utils/help"
 import { setLanguage } from "../../language"
 import IscasInput from "@/components/IscasInput.vue"
 import IscasButton from "@/components/IscasButton.vue"
@@ -167,7 +167,6 @@ export default {
 			nextLoading: false,
 			loginMode: true, //登录模式 true，扫码，false，域名
 			subDomain: "",
-			isMobile: isMobile(),
 			isOpensource: "0",
 		}
 	},
@@ -231,7 +230,7 @@ export default {
 						this.loading = false
 						this.bkey = result.results
 						this.qrcode = "p=aospace&bt=box-login&v=" + result.results
-						if (this.isMobile) {
+						if (this.isMobile()) {
 							this.qrcode = `${this.qrcode}&isApp=1`
 						}
 						if (this.isOpensource == "1") {
