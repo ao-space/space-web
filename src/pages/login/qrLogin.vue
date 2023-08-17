@@ -16,7 +16,7 @@
 
 <template>
 	<div class="flex-y-center flex-column full" v-if="isMobile()">
-		<div class="flex-y-center flex-column mt-100" v-show="loginMode">
+		<div class="flex-y-center flex-column mt-100">
 			<div style="width: 150px; height: 150px" v-request="loading">
 				<QrcodeVue :size="150" v-show="qrcode" :value="qrcode"></QrcodeVue>
 			</div>
@@ -28,29 +28,6 @@
 				</i18n-t>
 			</div>
 			<div class="mt-26 gray-14">{{ $t("login.version") }}</div>
-			<div class="blue-16 fw-b mt-36 pointer" @click="choseLogin(false)">
-				{{ $t("login.other_login") }}
-			</div>
-		</div>
-		<div class="flex-column mt-10 p-26 w-100 mobile" v-show="!loginMode">
-			<div class="black-14 fw-b">{{ $t("login.input_domain") }}</div>
-			<IscasInput
-				class="mt-30 black-16"
-				:placeholder="$t('login.domain_name')"
-				v-model="subDomain"
-			></IscasInput>
-			<el-divider />
-			<div class="flex-y-center flex-column mt-30">
-				<IscasButton
-					:loading="nextLoading"
-					style="width: 200px; height: 44px"
-					@click="nextStep"
-					>{{ $t("buttons.common_next") }}</IscasButton
-				>
-				<div class="blue-16 fw-b pointer mt-36" @click="choseLogin(true)">
-					{{ $t("login.scan_code") }}
-				</div>
-			</div>
 		</div>
 	</div>
 	<div v-else class="flex-y-center login-container full">
@@ -63,26 +40,13 @@
 		/>
 		<div class="core-div">
 			<div class="title flex">
-				<div
-					:class="loginMode ? 'subTitle' : 'subTitle2'"
-					@click="choseLogin(true)"
-				>
+				<div class="subTitle">
 					<div class="font-18 fw-b" style="height: 61px; line-height: 62px">
 						{{ $t("login.scan_code") }}
 					</div>
-					<div class="checkLine"></div>
-				</div>
-				<div
-					:class="loginMode ? 'subTitle2' : 'subTitle'"
-					@click="choseLogin(false)"
-				>
-					<div class="font-18 fw-b" style="height: 61px; line-height: 62px">
-						{{ $t("login.domain_login") }}
-					</div>
-					<div class="checkLine"></div>
 				</div>
 			</div>
-			<div class="flex-xy-center flex-column" v-show="loginMode">
+			<div class="flex-xy-center flex-column">
 				<div
 					class="mt-37"
 					style="width: 240px; height: 240px"
@@ -98,20 +62,6 @@
 					</i18n-t>
 				</div>
 				<div class="mt-22 gray-20">{{ $t("login.web_needs") }}</div>
-			</div>
-			<div class="flex-xy-center flex-column pc" v-show="!loginMode">
-				<IscasInput
-					:placeholder="$t('login.domain_name')"
-					class="mt-120 font-16"
-					v-model="subDomain"
-				></IscasInput>
-				<div
-					class="button-blue mt-130"
-					style="width: 200px; height: 56px"
-					@click="nextStep"
-				>
-					{{ $t("buttons.common_next") }}
-				</div>
 			</div>
 		</div>
 		<div class="font-20 color-1 div-one">
@@ -165,7 +115,6 @@ export default {
 			qrcode: "",
 			loading: true,
 			nextLoading: false,
-			loginMode: true, //登录模式 true，扫码，false，域名
 			subDomain: "",
 			isOpensource: "0",
 		}
@@ -187,41 +136,6 @@ export default {
 		pollInterval = setInterval(this.pollBkey, 5000)
 	},
 	methods: {
-		nextStep() {
-			this.nextLoading = true
-			loginUtils
-				.getPublicKey(this.subDomain)
-				.then((result) => {
-					this.nextLoading = false
-					if (result.code === "GW-200") {
-						this.gotoIpForSubDomain(result.results)
-					} else if (result.code === "GW-404") {
-						this.errorMessage(
-							"login.space_not_found",
-							"login.space_not_found_mobile"
-						)
-					} else if (result.code === "GW-4004") {
-						this.errorMessage("login.space_id_duplicate")
-					} else {
-						this.errorMessage("notify.opera_fail")
-					}
-				})
-				.catch(() => {
-					this.errorMessage("notify.opera_fail")
-					this.nextLoading = false
-				})
-		},
-		choseLogin(mode) {
-			if (this.loginMode === mode) return
-			this.loginMode = mode
-			if (this.loginMode) {
-				this.genBkey()
-				pollInterval = setInterval(this.pollBkey, 5000)
-			} else {
-				clearInterval(bkeyInterval)
-				clearInterval(pollInterval)
-			}
-		},
 		genBkey() {
 			loginUtils
 				.genBkeyByLan()
@@ -255,63 +169,6 @@ export default {
 					this.gotoIp(data.results.boxLanInfo)
 				}
 			})
-		},
-		gotoIpForSubDomain(data) {
-			console.log("subdomain", data)
-			networkListener
-				.ping(
-					data.boxLanInfo.lanDomain,
-					data.boxLanInfo.port,
-					data.boxLanInfo.tlsPort
-				)
-				.then(() => {
-					window.location.href =
-						"https://" +
-						data.boxLanInfo.lanDomain +
-						":" +
-						data.boxLanInfo.tlsPort +
-						"/space/index.html?bkey=" +
-						this.bkey +
-						"&publickey=" +
-						encodeURIComponent(data.boxLanInfo.publicKey) +
-						"&version=v2&spaceId=" +
-						this.subDomain +
-						"#/login"
-				})
-				.catch(() => {
-					networkListener
-						.ping(
-							data.boxLanInfo.lanIp,
-							data.boxLanInfo.port,
-							data.boxLanInfo.tlsPort
-						)
-						.then(() => {
-							window.location.href =
-								"http://" +
-								data.boxLanInfo.lanIp +
-								":" +
-								data.boxLanInfo.port +
-								"/space/index.html?bkey=" +
-								this.bkey +
-								"&publickey=" +
-								encodeURIComponent(data.boxLanInfo.publicKey) +
-								"&version=v2&spaceId=" +
-								this.subDomain +
-								"#/login"
-						})
-						.catch(() => {
-							window.location.href =
-								"https://" +
-								data.boxLanInfo.userDomain +
-								"/space/index.html?bkey=" +
-								this.bkey +
-								"&publickey=" +
-								encodeURIComponent(data.boxLanInfo.publicKey) +
-								"&version=v2&spaceId=" +
-								this.subDomain +
-								"#/login"
-						})
-				})
 		},
 		gotoIp(data) {
 			console.log("gotoIp", data)
