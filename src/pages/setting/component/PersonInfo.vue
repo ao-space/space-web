@@ -34,11 +34,11 @@
        <span class="infoname">{{ $t('setting.space_channel') }}</span>
        <div class="ml-20 flex">
          <div class='tag1'>{{ $t('setting.lan') }}</div>
-         <div class='tag3'>{{ $t('setting.wlan') }}</div>
+         <div class='tag3' v-if="domainName">{{ $t('setting.wlan') }}</div>
        </div>
      </div>
-      <div class="y-center mt-40">
-        <span class="infoname">{{ $t('setting.domain_name') }}</span>
+      <div class="y-center mt-40" v-if="domainName">
+        <span class="infoname">{{ $t('setting.domain_name') }}1</span>
         <div class="ml-20 color-grey">{{ domainName }}</div>
       </div>
       <div class="y-center mt-40">
@@ -307,7 +307,7 @@ export default {
         this.personalSign = data.results[0].personalSign
         this.personalName_ = this.personalName
         this.personalSign_ = this.personalSign
-        this.domainName = 'https://' + data.results[0].userDomain
+        this.domainName = data.results[0].userDomain ? 'https://' + data.results[0].userDomain:''
       } else {
         getPersonal().then((data) => {
           if (data.code === 'ACC-200') {

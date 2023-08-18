@@ -28,7 +28,7 @@
         <span>{{ userInfo.personalName }}</span>
         <span>{{ $t('login.auto') }}</span>
       </div>
-      <span class="black-14">{{ 'https://' + userInfo.userDomain }}</span>
+      <span class="black-14" v-if="userInfo.userDomain">{{ 'https://' + userInfo.userDomain }}</span>
       <div class="mt-32 tc" v-show="status === 1">
         <IscasButton :loading="showLoading" class="button-blue" @click="goSpace">
           {{ $t('login.enter') }}
