@@ -143,13 +143,15 @@ export default {
 					if (result.code === "GW-200") {
 						this.loading = false
 						this.bkey = result.results
-						this.qrcode = "p=aospace&bt=box-login&v=" + result.results
+						let tmpStr = `p=aospace&bt=box-login&v=${result.results}`
 						if (this.isMobile()) {
-							this.qrcode = `${this.qrcode}&isApp=1`
+							tmpStr = `${tmpStr}&isApp=1`
 						}
-						if (this.isOpensource == "1") {
-							this.qrcode = `${this.qrcode}&isOpensource=1`
+						let search = window.location.hash.split("?")[1]
+						if (search) {
+							tmpStr += `&${search}`
 						}
+                        this.qrcode = tmpStr
 						bkeyInterval = setTimeout(this.genBkey, 120 * 1000)
 					} else {
 						bkeyInterval = setTimeout(this.genBkey, 3000)
