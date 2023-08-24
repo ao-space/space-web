@@ -395,30 +395,8 @@ export function postPersonal(personalName, personalSign) {
   return post(`${baseUrl}/space/v1/api/gateway/call`, params)
 }
 
-/**
- * update personal information
- */
-export function postSPersonalSign() {
-  let params: RealCallRequest<any, any> = {
-    apiVersion: 'v1',
-    apiName: 'sign_update',
-    serviceName: 'eulixspace-account-service',
-    entity: {
-      personalName: '',
-      personalSign: ''
-    }
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, params)
-}
 
-export function getSettingInfo(){
-  let params: RealCallRequest<any, any> = {
-    apiVersion: 'v1',
-    apiName: 'setting_info',
-    serviceName: 'eulixspace-account-service',
-  }
-  return post(`${baseUrl}/space/v1/api/gateway/call`, params)
-}
+
 /**
  * get img information
  * 获取头像
@@ -499,17 +477,10 @@ export async function getVideoM3u8(uuid) {
       .then((data) => {
         let blob = new Blob([data])
         new JSZip().loadAsync(blob).then(function (zip) {
-          console.log('m3u8 zip ', zip)
           let fileName = 'index-wan.m3u8'
           if (networkListener.isIp()) {
             fileName = 'index-lan.m3u8'
-          } else if (networkListener.isLan()) {
-            fileName = 'index-lan-domain.m3u8'
           }
-          // else if(canGetWebRtcConnection()) {
-          //   fileName = 'index-p2p.m3u8'
-          // }
-          console.log('m3u8 file', fileName)
           zip
             .file(fileName)
             .async('string')
