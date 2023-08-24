@@ -68,14 +68,14 @@
 			<div class="mb10 tac">
 				<span
 					class="pointer"
-					@click="go('https://ao.space/privacy', 'https://ao.space/en/privacy')"
+					@click="go('https://ao.space/opensource/privacy', 'https://ao.space/en/opensource/privacy')"
 					>{{ $t("login.privacy") }}</span
 				>
 				<span class="ml19 mr-19">|</span>
 				<span
 					class="pointer"
 					@click="
-						go('https://ao.space/agreement', 'https://ao.space/en/agreement')
+						go('https://ao.space/opensource/agreement', 'https://ao.space/en/opensource/agreement')
 					"
 					>{{ $t("login.user") }}</span
 				>

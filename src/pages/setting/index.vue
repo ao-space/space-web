@@ -144,9 +144,7 @@ export default {
     this.getMemberList()
     this.getDeviceVersion()
 
-    // getSettingInfo().then((result)=>{
-    //   console.log("getSettingInfo",result)
-    // })
+
 
     getDeviceAbilityWithCache().then((res) => {
       this.deviceModelNumber = res.results.deviceModelNumber
