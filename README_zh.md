@@ -23,7 +23,11 @@ space-web 使用以下主要框架进行开发
 
 ### 开发说明
 
-1.本项目是傲空间的 web 端，服务端接口用的是 https://github.com/ao-space/space-gateway 接口。 2.本项目的大部分接口都经过 2 次加密 3.安装依赖请运行 npm install 4.开发请运行 npm run dev 5.构建项目请运行 npm run build
+1.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。
+2.本项目的大部分接口都经过 2 次加密
+3.安装依赖请运行 `npm install`
+4.开发请运行 `npm run dev`
+5.构建项目请运行 `npm run build`
 
 ## 贡献指南
 
