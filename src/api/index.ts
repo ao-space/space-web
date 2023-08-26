@@ -542,7 +542,6 @@ export function getMessagePoll() {
  * 获得绑定终端信息
  */
 export function getTerminalInfo() {
-  // todo 这里需要优化
   let params: RealCallRequest<FileParam, any> = {
     apiVersion: 'v1',
     apiName: 'personalinfo_show',
@@ -551,3 +550,17 @@ export function getTerminalInfo() {
 
   return post(`${baseUrl}/space/v1/api/gateway/call`, params)
 }
+
+
+
+export function getServiceConfig(clientUUID,aoId) {
+    let params = {
+      apiVersion: 'v1',
+      apiName: 'internet_service_get_config',
+      serviceName: 'eulixspace-agent-service',
+      queries: {
+        clientUuid:clientUUID,aoId
+      }
+    }
+    return post(`${baseUrl}/space/v1/api/gateway/call`, params)
+  }

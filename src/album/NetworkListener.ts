@@ -123,7 +123,6 @@ class NetworkListener {
       } else {
         url = 'https://' + ip + ':' + sslPort + '/space/status?not307=yes&t=' + data.getTime()
       }
-      console.log('ping =====> ', url)
       axios
         .get(url, {
           headers: {
