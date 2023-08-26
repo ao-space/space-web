@@ -646,19 +646,6 @@ http {
             index index.html;
         }
 
-        location /share/ { 
-            add_header Access-Control-Allow-Origin '$http_origin' always;
-            add_header Access-Control-Allow-Credentials true always;
-            add_header Access-Control-Expose-Headers '*';
-            add_header Access-Control-Allow-Headers 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,request-Id';
-            add_header Access-Control-Allow-Methods 'GET, HEAD, OPTIONS';
-            if ($request_method = 'OPTIONS') {
-                return 204;
-            }
-            alias /opt/eulixspace-web/share/;
-            index file.html;
-        }
-
         location / { 
             add_header Access-Control-Allow-Origin '$http_origin' always;
             add_header Access-Control-Allow-Credentials true always;

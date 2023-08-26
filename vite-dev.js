@@ -19,8 +19,8 @@ const envFlag = 'three'
 const targetMap = {
   'three': {
     port: 3000,
-    target: 'https://bybw6n0v.dev-space.eulix.xyz/',
-    userUrlIdentify: 'chuang2023'
+    target: 'http://192.168.124.153',
+    userUrlIdentify: 'bybw6n0v'
   }
 }
 
