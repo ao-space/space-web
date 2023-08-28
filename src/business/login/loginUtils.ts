@@ -45,7 +45,8 @@ const unneedClearKeyDefaultValueArray = [
   { key: keyMap.language },
   { key: keyMap.refreshToken },
   { key: keyMap.boxLanInfo },
-  { key: 'showLog' }
+  { key: keyMap.showLog },
+  { key: keyMap.serviceConfig}
 ]
 
 export function getPersonalCache() {

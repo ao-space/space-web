@@ -25,7 +25,7 @@
 		</el-header>
 
 		<el-main class="container">
-			<PersonInfo @personIconChange="personIconChange"></PersonInfo>
+			<PersonInfo @personIconChange="personIconChange" :enableInternetAccess="enableInternetAccess"></PersonInfo>
 
 			<div class="mt20" id="devices">
 				<div class="info">{{ $t("router.device") }}</div>
@@ -129,6 +129,7 @@ export default {
 			deviceModelNumber: 0,
 			user: {},
 			isTrial: false,
+            enableInternetAccess:false, 
 		}
 	},
 
@@ -155,12 +156,14 @@ export default {
 		})
 		const aoid = getAoid()
 		const clientUUID = localStorage.getItem("clientUUID")
-		// getServiceConfig(clientUUID, aoid).then((res) => {
-		// 	if (res.code === "200") {
-		// 		localStorage.setItem("serviceConfig", JSON.stringify(res.results))
-		// 	}
-        //     console.log("serviceConfig", res)
-		// })
+		getServiceConfig(clientUUID, aoid).then((res) => {
+			if (res.code === "AG-200") {
+				localStorage.setItem(keyMap.serviceConfig, JSON.stringify(res.results))
+                this.enableInternetAccess = res.results.enableInternetAccess
+                console.log("enableInternetAccess", this.enableInternetAccess)
+			}
+            console.log("serviceConfig", res)
+		})
 	},
 	mounted() {
 		let point = this.$route.query.p

@@ -149,5 +149,9 @@ export const keyMap = {
  /**
   * 应用 关闭后不在提示存储前缀
  */
- appPrefix:'appPrefix'
+ appPrefix:'appPrefix',
+
+ serviceConfig:'serviceConfig',
+
+ showLog:'showLog'
 }

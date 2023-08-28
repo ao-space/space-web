@@ -28,7 +28,7 @@
         <span>{{ userInfo.personalName }}</span>
         <span>{{ $t('login.auto') }}</span>
       </div>
-      <span class="black-14" v-if="userInfo.userDomain">{{ 'https://' + userInfo.userDomain }}</span>
+      <span class="black-14" v-if="userInfo.userDomain && enableInternetAccess">{{ 'https://' + userInfo.userDomain }}</span>
       <div class="mt-32 tc" v-show="status === 1">
         <IscasButton :loading="showLoading" class="button-blue" @click="goSpace">
           {{ $t('login.enter') }}
@@ -78,6 +78,8 @@ export default {
   components: { IscasButton },
   data() {
     let userInfo = localStorage.getItem(keyMap.__getPersonal__)
+    let serviceConfig = localStorage.getItem(keyMap.serviceConfig)
+    let enableInternetAccess = false
     if (userInfo) {
       try {
         userInfo = JSON.parse(userInfo).results[0]
@@ -90,6 +92,14 @@ export default {
       window.location.href = `${getWebUrl()}#/login`
     }
 
+    if (serviceConfig) {
+      try {
+        serviceConfig = JSON.parse(serviceConfig)
+        enableInternetAccess = serviceConfig.enableInternetAccess
+      } catch (e) {
+        serviceConfig = null
+      }
+    }
     const origin = window.location.origin
     return {
       status: 1,
@@ -98,7 +108,9 @@ export default {
       imgsrc: iconimg,
       enLogo,
       zhLogo,
-      showLoading: false
+      showLoading: false,
+      enableInternetAccess: enableInternetAccess
+      
     }
   },
 
