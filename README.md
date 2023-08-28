@@ -4,7 +4,7 @@
 - [Technology Stack](#technology-stack)
 - [Build Instructions](#build-instructions)
 - [Contribution Guidelines](#contribution-guidelines)
-- [中文文档](/README.md)
+- [中文文档](/README_zh.md)
 
 ## Introduction
 
