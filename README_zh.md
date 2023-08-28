@@ -1,9 +1,8 @@
-# Space-web 介绍
+# space-web 介绍
 
 - [简介](#简介)
 - [技术栈](#技术栈)
-- [开发说明](#开发说明)
-- [演进计划](#演进计划)
+- [构建说明](#构建说明)
 - [贡献指南](#贡献指南)
 - [English Documents](/README.md)
 
@@ -21,13 +20,15 @@ space-web 使用以下主要框架进行开发
 3.axios
 4.jsencrypt
 
-### 开发说明
+### 构建说明
 
-1.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。
-2.本项目的大部分接口都经过 2 次加密
+1.进入到您的工作目录,运行命令 `git clone https://github.com/ao-space/space-web.git`
+2.进入到 space-web 目录 `cd ./space-web`
 3.安装依赖请运行 `npm install`
 4.开发请运行 `npm run dev`
 5.构建项目请运行 `npm run build`
+6.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。
+7.本项目的大部分接口都经过 2 次加密
 
 ## 贡献指南
 

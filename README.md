@@ -1,58 +1,58 @@
-# Introduction to Space-web
+# Introduction to space-web
 
 - [Introduction](#introduction)
 - [Technology Stack](#technology-stack)
-- [Development Guidelines](#development-guidelines)
-- [Roadmap](#roadmap)
+- [Build Instructions](#build-instructions)
 - [Contribution Guidelines](#contribution-guidelines)
-- [中文文档](/README_zh.md)
+- [中文文档](/README.md)
 
 ## Introduction
 
-Space-web is the web component of AO.space. It leverages technologies such as PWA (Progressive Web App) and IndexedDB to provide users with a great frontend experience.
+space-web is the web component of AO.space. It utilizes technologies like PWA (Progressive Web App) and IndexedDB to provide users with a good frontend experience.
 
-Space-web offers basic file management functionalities. After logging in to the space-web interface, users can upload files, create folders, delete files, rename files, copy and move files, and more. Additionally, space-web provides a recycle bin feature where users can find deleted files from the file management section and perform file restoration or permanent deletion. Lastly, users can customize their profiles by setting avatars, personal signatures, and more.
+space-web offers basic file management functionalities. After opening the space-web interface and logging in, users can upload files, create folders, delete files, rename files, copy and move files, and more. Additionally, space-web includes a recycle bin feature where users can find deleted files from the file management system and restore or permanently delete them. Finally, users can personalize their settings by setting avatars, signatures, and more.
 
 ### Technology Stack
 
-Space-web utilizes the following main frameworks for development:
-
-1. Vue 3
-2. Element Plus
+space-web is developed using the following main frameworks:
+1. Vue3
+2. Element-Plus
 3. Axios
-4. JsEncrypt
+4. Jsencrypt
 
-### Development Guidelines
+### Build Instructions
 
-1. This project is the web frontend of AO.space, and it uses the APIs provided by [space-gateway](https://github.com/ao-space/space-gateway).
-2. Most of the APIs in this project are doubly encrypted.
-3. To install dependencies, run `npm install`.
-4. To start development, run `npm run dev`.
-5. To build the project, run `npm run build`.
+1. Navigate to your working directory and run the command `git clone https://github.com/ao-space/space-web.git`.
+2. Enter the space-web directory by running `cd ./space-web`.
+3. Install dependencies by running `npm install`.
+4. For development, run `npm run dev`.
+5. For building the project, run `npm run build`.
+6. This project is the web frontend of AO.space and relies on the [space-gateway](https://github.com/ao-space/space-gateway) API.
+7. Most of the project's APIs undergo two rounds of encryption.
 
 ## Contribution Guidelines
 
-We welcome contributions to this project. Here are some guidelines and suggestions to help you get involved.
+We welcome contributions to this project. Here are some guidelines and suggestions to help you get involved:
 
 ### Contributing Code
 
-If you want to contribute to the project, the best way is to submit code changes. Before submitting your code, make sure you have downloaded and familiarized yourself with the project codebase, and ensure that your code follows the following guidelines:
+The best way to contribute to the project is by submitting code. Before submitting code, make sure you have downloaded and familiarized yourself with the project codebase. Ensure that your code follows the following guidelines:
 
 - Code should be concise, clear, and easy to maintain and extend.
-- Code should follow the project's naming conventions to ensure consistency.
-- Code should adhere to the project's code style guidelines, which can be found in the project's code repository.
+- Code should adhere to the naming conventions established by the project to maintain consistency.
+- Code should follow the project's code style guidelines, which can be found in the project's code repository.
 
-To submit your code changes, follow these steps:
+To submit code to the project, follow these steps:
 
 - Fork the project on GitHub.
 - Clone your forked project to your local machine.
 - Make your modifications and improvements locally.
 - Run tests to ensure that any changes have no adverse effects.
-- Submit your changes and create a pull request.
+- Submit your changes and create a new pull request.
 
 ### Code Quality
 
-We value code quality, so the code you submit should meet the following requirements:
+We prioritize code quality, so the code you submit should meet the following requirements:
 
 - Code should be thoroughly tested to ensure correctness and stability.
 - Code should follow good design principles and best practices.
