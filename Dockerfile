@@ -29,7 +29,6 @@ COPY --from=builder cert.crt /etc/nginx/certs/cert.pem
 COPY --from=builder private.key /etc/nginx/certs/cert.key
 RUN mkdir -p /opt/eulixspace-web/space/ /opt/eulixspace-web/share/
 COPY --from=builder dist /opt/eulixspace-web/space
-COPY --from=builder shareDist /opt/eulixspace-web/share
 COPY --from=builder docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
