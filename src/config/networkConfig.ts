@@ -31,9 +31,9 @@ export let noCryptArray = [
   '/space/v1/api/auth/auto/login/poll',
   'space/v1/api/auth/auto/login',
   '/space/status',
-  '/space/v2/api/gateway/totp/bkey',
-  '/space/v2/api/gateway/totp/bkey/poll',
-  '/space/v2/api/gateway/totp/verify'
+  '/space/v1/api/gateway/totp/bkey',
+  '/space/v1/api/gateway/totp/bkey/poll',
+  '/space/v1/api/gateway/totp/verify'
 ]
 
 /**

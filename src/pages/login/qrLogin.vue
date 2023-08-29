@@ -187,7 +187,7 @@ export default {
 						this.bkey +
 						"&publickey=" +
 						encodeURIComponent(data.publicKey) +
-						"&version=v2#/login"
+						"&version=v1#/login"
 				})
 				.catch(() => {
 					networkListener
@@ -202,7 +202,7 @@ export default {
 								this.bkey +
 								"&publickey=" +
 								encodeURIComponent(data.publicKey) +
-								"&version=v2#/login"
+								"&version=v1#/login"
 						})
 						.catch(() => {
 							window.location.href =
@@ -212,7 +212,7 @@ export default {
 								this.bkey +
 								"&publickey=" +
 								encodeURIComponent(data.publicKey) +
-								"&version=v2#/login"
+								"&version=v1#/login"
 						})
 				})
 		},

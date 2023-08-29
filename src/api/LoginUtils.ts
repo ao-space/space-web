@@ -23,14 +23,14 @@ class LoginUtils {
    * 验证码 验证
    */
   bKeyVerify(params) {
-    return post(`${baseUrl}/space/v2/api/gateway/totp/bkey/verify`, params)
+    return post(`${baseUrl}/space/v1/api/gateway/totp/bkey/verify`, params)
   }
 
   /**
    * 局域网获取pkey
    */
   genBkeyByLan() {
-    return post(`${baseUrl}/space/v2/api/gateway/totp/bkey`)
+    return post(`${baseUrl}/space/v1/api/gateway/totp/bkey`)
   }
 
   /**
@@ -38,14 +38,14 @@ class LoginUtils {
    * @param pkey
    */
   pollBkeyByLan(bkey: any) {
-    return post(`${baseUrl}/space/v2/api/gateway/totp/bkey/poll`,{bkey})
+    return post(`${baseUrl}/space/v1/api/gateway/totp/bkey/poll`,{bkey})
   }
 
   /**
    * 验证码 验证
    */
   getPublicKey(subDomain) {
-    return get(`${baseUrl}/space/v2/api/gateway/totp/bkey`,{'spaceId':subDomain})
+    return get(`${baseUrl}/space/v1/api/gateway/totp/bkey`,{'spaceId':subDomain})
   }
 }
 export let loginUtils = new LoginUtils()
