@@ -5,6 +5,12 @@
 - [开发说明](#开发说明)
 - [部署说明](#部署说明)
 - [贡献指南](#贡献指南)
+- [贡献代码](#贡献代码)
+- [代码质量](#代码质量)
+- [提交信息](#提交信息)
+- [问题报告](#问题报告)
+- [功能请求](#功能请求)
+- [感谢您的贡献](#感谢您的贡献)
 - [English Documents](/README.md)
 
 ## 简介
@@ -36,8 +42,9 @@ space-web 使用以下主要框架进行开发
 2.如果该项目对外暴露域名和space-gateway接口域名不一致，需 把src/config/networkConfig.ts 中的urlConfig的baseurl 改为space-gateway的接口域名
 具体如下图
 ![Alt text](./img/image-1.png)
-
-## 贡献指南
+3.在项目根目录下运行 `docker build -t space-web .`
+4.将打包出的nginx镜像运行起来 执行命令 `docker run -d --name space-web -p 80:80 space-web` (具体的docker命令请参照docker文档)
+### 贡献指南
 
 我们非常欢迎对本项目进行贡献。以下是一些指导原则和建议，希望能够帮助您参与到项目中来。
 
