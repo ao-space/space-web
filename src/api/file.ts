@@ -38,7 +38,7 @@ export async function upLoadCreate(paramsUpCreate: UpLoadCreate) {
     serviceName: 'eulixspace-file-service',
     entity: paramsUpCreate
   }
-  return post(`${urlConfig.uploadUrl}/space/v1/api/gateway/call`, params)
+  return post(`${urlConfig.baseUrl}/space/v1/api/gateway/call`, params)
 }
 
 /*
@@ -53,7 +53,7 @@ export async function uploadedList(uploadId: string) {
     },
     serviceName: 'eulixspace-file-service'
   }
-  return post(`${urlConfig.uploadUrl}/space/v1/api/gateway/call`, params)
+  return post(`${urlConfig.baseUrl}/space/v1/api/gateway/call`, params)
 }
 
 /**
@@ -68,7 +68,7 @@ export async function upLoadComplete(uploadId: string) {
       uploadId
     }
   }
-  return post(`${urlConfig.uploadUrl}/space/v1/api/gateway/call`, params)
+  return post(`${urlConfig.baseUrl}/space/v1/api/gateway/call`, params)
 }
 
 /**
@@ -78,7 +78,7 @@ export async function sequelFileUpload(sequelUploadParams: SequelUploadParams) {
   let { promise, resolve, reject } = genPromise()
   let { progress } = sequelUploadParams
   let downOptions = {} as DownOptions
-  downOptions.url = `${urlConfig.uploadUrl}/space/v1/api/gateway/upload`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/gateway/upload`
   downOptions.type = 'upload'
   downOptions.progress = progress as progressFn
   let name = sequelUploadParams.md5sum
@@ -145,7 +145,7 @@ export function noCryUpLoad(sequelUploadParams: SequelUploadParams, token) {
   const queryStr = `md5sum=${md5sum}&uploadId=${uploadId}&start=${start}&end=${end}&requestId=${new Date().getTime()}`
 
   let downOptions = {} as DownOptions
-  downOptions.url = `${urlConfig.uploadUrl}/space/v1/api/multipart/upload?${queryStr}`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/multipart/upload?${queryStr}`
   downOptions.type = 'upload'
   downOptions.progress = progress as progressFn
   downOptions.uploadParam = sequelUploadParams.file
@@ -172,7 +172,7 @@ export function noCryUpLoad(sequelUploadParams: SequelUploadParams, token) {
  * 文件上传
  */
 export async function fileUpload(downOptions: DownOptions, path) {
-  downOptions.url = `${urlConfig.uploadUrl}/space/v1/api/gateway/upload`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/gateway/upload`
   downOptions.type = 'upload'
   downOptions.timeout = xhrUpLoadTimeout
   const { file, name, success, fail } = downOptions
@@ -228,7 +228,7 @@ export async function fileUpload(downOptions: DownOptions, path) {
  * 无需2次加密下载
  */
 export async function noCryFileDownLoad(downOptions: DownOptions, uuid, token) {
-  downOptions.url = `${urlConfig.downloadUrl}/space/v1/api/file/download?uuid=${uuid}`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/file/download?uuid=${uuid}`
   downOptions.type = 'download'
   downOptions.method = 'GET'
   downOptions.timeout = 80 * 1000
@@ -240,7 +240,7 @@ export async function noCryFileDownLoad(downOptions: DownOptions, uuid, token) {
  * 文件下载
  */
 export async function fileDownLoad(downOptions: DownOptions, uuid) {
-  downOptions.url = `${urlConfig.downloadUrl}/space/v1/api/gateway/download`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/gateway/download`
   downOptions.type = 'download'
   let data = {
     apiVersion: 'v1',
@@ -327,7 +327,7 @@ function _fileDownLoad(downOptions: DownOptions) {
  * 返回缩略图
  */
 export async function fileThumb(downOptions: DownOptions, uuid, size) {
-  downOptions.url = `${urlConfig.resUrl}/space/v1/api/gateway/download`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/gateway/download`
   downOptions.type = 'download'
   let data = {
     apiVersion: 'v1',
@@ -344,7 +344,7 @@ export async function fileThumb(downOptions: DownOptions, uuid, size) {
  * 返回压缩图
  */
 export async function fileCompressed(downOptions: DownOptions, uuid) {
-  downOptions.url = `${urlConfig.resUrl}/space/v1/api/gateway/download`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/gateway/download`
   downOptions.type = 'download'
   let data = {
     apiVersion: 'v1',
@@ -358,7 +358,7 @@ export async function fileCompressed(downOptions: DownOptions, uuid) {
 }
 
 export async function getHeaderImage(downOptions: DownOptions, aoid) {
-  downOptions.url = `${urlConfig.resUrl}/space/v1/api/gateway/download`
+  downOptions.url = `${urlConfig.baseUrl}/space/v1/api/gateway/download`
   downOptions.type = 'download'
   let data = {
     apiVersion: 'v1',

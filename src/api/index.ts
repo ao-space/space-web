@@ -198,7 +198,7 @@ export async function upLoadCreate(paramsUpCreate: UpLoadCreate) {
     serviceName: 'eulixspace-file-service',
     entity: paramsUpCreate
   }
-  return post(`${urlConfig.uploadUrl}/space/v1/api/gateway/call`, params)
+  return post(`${urlConfig.baseUrl}/space/v1/api/gateway/call`, params)
 }
 
 /*
@@ -213,7 +213,7 @@ export async function uploadedList(uploadId: string) {
     },
     serviceName: 'eulixspace-file-service'
   }
-  return post(`${urlConfig.uploadUrl}/space/v1/api/gateway/call`, params)
+  return post(`${urlConfig.baseUrl}/space/v1/api/gateway/call`, params)
 }
 
 /**
@@ -228,7 +228,7 @@ export async function upLoadComplete(uploadId: string) {
       uploadId
     }
   }
-  return post(`${urlConfig.uploadUrl}/space/v1/api/gateway/call`, params)
+  return post(`${urlConfig.baseUrl}/space/v1/api/gateway/call`, params)
 }
 
 /**

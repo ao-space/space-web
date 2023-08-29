@@ -50,18 +50,11 @@ export let axiosTimeout = 90 * 1000
 // 上传下载文件超时时间
 export let xhrUpLoadTimeout = 90 * 1000
 
-let urlMap = {
-  resUrl: '',
-  uploadUrl: '',
-  downloadUrl: '',
-  pushUrl: ''
-}
 
-// 用户域名jqh6eqr7
+
 let userUrlIdentify = ''
 
 
-// https://jqh6eqr7.ao.space/
 export let origin = window.location.origin
 
 let platformUrl = ''
@@ -69,26 +62,12 @@ export const setPlatformUrl = (url) => {
   platformUrl = url
 }
 
-/**
- *
- */
+
 export let urlConfig = {
   baseUrl: '',
   get platformUrl() {
     return platformUrl
   }, // 平台url
-  get resUrl() {
-    return urlMap.resUrl
-  },
-  get uploadUrl() {
-    return urlMap.uploadUrl
-  },
-  get downloadUrl() {
-    return urlMap.downloadUrl
-  },
-  get pushUrl() {
-    return urlMap.pushUrl
-  },
   get urlIdentify() {
     return userUrlIdentify
   },
@@ -100,11 +79,6 @@ if (isDev()) {
   origin = 'https://bybw6n0v.dev-space.eulix.xyz/'
 
   urlConfig.baseUrl = ''
-
-  urlMap.downloadUrl = ''
-  urlMap.uploadUrl = ''
-  urlMap.pushUrl = ''
-  urlMap.resUrl = ''
   userUrlIdentify = getDevConfig().userUrlIdentify
 } else {
   userUrlIdentify = getUserUrlIdentify(origin)
@@ -119,10 +93,6 @@ function getUserUrlIdentify(userOrigin) {
 }
 
 let flag307 = false
-/**
- * 通过hack方式来判断是否是307
- * https://cdoettk6.dev-space.eulix.xyz   https://cdoettk6.dev2-space.eulix.xyz    cdoettk6.dev-space.eulix.xyz !=  cdoettk6.dev2-space.eulix.xyz
- */
 export function deal307Event(responseURL, config) {
   if (config && config.url && config.url.indexOf('/space/status?not307=yes') > 0) {
     return

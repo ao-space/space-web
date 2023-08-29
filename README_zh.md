@@ -2,7 +2,8 @@
 
 - [简介](#简介)
 - [技术栈](#技术栈)
-- [构建说明](#构建说明)
+- [开发说明](#开发说明)
+- [部署说明](#部署说明)
 - [贡献指南](#贡献指南)
 - [English Documents](/README.md)
 
@@ -20,15 +21,21 @@ space-web 使用以下主要框架进行开发
 3.axios
 4.jsencrypt
 
-### 构建说明
+### 开发说明
 
 1.进入到您的工作目录,运行命令 `git clone https://github.com/ao-space/space-web.git`
 2.进入到 space-web 目录 `cd ./space-web`
 3.安装依赖请运行 `npm install`
 4.开发请运行 `npm run dev`
-5.构建项目请运行 `npm run build`
-6.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。
-7.本项目的大部分接口都经过 2 次加密
+6.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。开发时请修改根目录下的 vite-dev 文件中的 target 属性，让其指向space-gateway的接口地址
+具体见下图
+![Alt text](./img/image.png)
+
+### 部署说明
+1.确定该项目对外暴露域名及space-gateway接口域名
+2.如果该项目对外暴露域名和space-gateway接口域名不一致，需 把src/config/networkConfig.ts 中的urlConfig的baseurl 改为space-gateway的接口域名
+具体如下图
+![Alt text](./img/image-1.png)
 
 ## 贡献指南
 

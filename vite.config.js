@@ -66,38 +66,7 @@ const config = {
       '/space': {
         target:server.target,
         changeOrigin: true,
-      },
-      '/platformUrl': {
-        target: 'https://dev.eulix.xyz/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/platformUrl/, ''),
-      },
-      '/downloadUrl': {
-        target: `https://${preHost}.download.ao.space`,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/downloadUrl/, ''),
-      },
-      '/uploadUrl': {
-        target: `https://${preHost}.upload.ao.space`,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/uploadUrl/, ''),
-      },
-      '/pushUrl': {
-        target: `https://${preHost}.push.ao.space`,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/pushUrl/, ''),
-      },
-      '/resUrl': {
-        target: `https://${preHost}.res.ao.space`,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/resUrl/, ''),
-      },
-      // 正则表达式写法
-      '^/fallback/.*': {
-        target: 'http://jsonplaceholder.typicode.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/fallback/, ''),
-      },
+      }
     },
   },
 
