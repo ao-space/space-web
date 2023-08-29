@@ -1,9 +1,16 @@
 # Introduction to space-web
 
 - [Introduction](#introduction)
-- [Technology Stack](#technology-stack)
-- [Build Instructions](#build-instructions)
+- [Architecture Design](#architecture-design)
+- [Development Instructions](#development-instructions)
+- [Deployment Instructions](#deployment-instructions)
 - [Contribution Guidelines](#contribution-guidelines)
+  - [Contribute Code](#contribute-code)
+  - [Code Quality](#code-quality)
+  - [Commit Information](#commit-information)
+  - [Issue Reporting](#issue-reporting)
+  - [Feature Requests](#feature-requests)
+- [Thank You for Contributing](#thank-you-for-contributing)
 - [中文文档](/README_zh.md)
 
 ## Introduction
@@ -12,23 +19,30 @@ space-web is the web component of AO.space. It utilizes technologies like PWA (P
 
 space-web offers basic file management functionalities. After opening the space-web interface and logging in, users can upload files, create folders, delete files, rename files, copy and move files, and more. Additionally, space-web includes a recycle bin feature where users can find deleted files from the file management system and restore or permanently delete them. Finally, users can personalize their settings by setting avatars, signatures, and more.
 
-### Technology Stack
+### Architecture Design
 
-space-web is developed using the following main frameworks:
-1. Vue3
-2. Element-Plus
-3. Axios
-4. Jsencrypt
+![Alt text](image.png)
 
-### Build Instructions
+space-web is developed using JavaScript and utilizes technologies such as Vue3, Element-plus, Axios, Jsencrypt, and service-worker. The business layer includes pages such as login, quick login, mine, and homepage, and uses web localization technology to ensure smooth file operations.
 
-1. Navigate to your working directory and run the command `git clone https://github.com/ao-space/space-web.git`.
-2. Enter the space-web directory by running `cd ./space-web`.
+### Development Instructions
+
+1. Enter your working directory and run the command `git clone https://github.com/ao-space/space-web.git`.
+2. Enter the space-web directory `cd ./space-web`.
 3. Install dependencies by running `npm install`.
-4. For development, run `npm run dev`.
-5. For building the project, run `npm run build`.
-6. This project is the web frontend of AO.space and relies on the [space-gateway](https://github.com/ao-space/space-gateway) API.
-7. Most of the project's APIs undergo two rounds of encryption.
+4. Run `npm run dev` for development.
+6. This project is the web component of AO.space, and the server-side interface uses the [space-gateway](https://github.com/ao-space/space-gateway) interface. When developing, please modify the target property in the vite-dev file in the root directory to point to the space-gateway interface address.
+See the following image for details.
+![Alt text](./img/image.png)
+
+### Deployment Instructions
+
+1. Determine the domain name exposed to the outside world for this project and the space-gateway interface domain name.
+2. If the domain name exposed to the outside world for this project and the space-gateway interface domain name are inconsistent, modify the baseurl of urlConfig in src/config/networkConfig.ts to the space-gateway interface domain name.
+See the following image for details.
+![Alt text](./img/image-1.png)
+3. Run `docker build -t space-web .` in the project root directory.
+4. Run the packaged nginx image by executing the command `docker run -d --name space-web -p 80:80 space-web` (Refer to the Docker documentation for specific Docker commands).
 
 ## Contribution Guidelines
 
