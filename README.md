@@ -49,10 +49,10 @@ Contributions to this project are very welcome. Here are some guidelines and sug
 
 ## Contact us
 
-- [Official website](https://ao.space)
+- Email: developer@ao.space
+- [Website](https://ao.space)
 - [Discussion group](https://slack.ao.space)
 - [Twitter](https://twitter.com/AOspaceOSC)
-- [Medium](https://medium.com/@aospacecommunity)
 
 You can also [get support for AO.spcae!](https://ao.space/en/support/help)
 
