@@ -1,4 +1,4 @@
-# Introduction to space-web
+# space-web
 
 English | [简体中文](./README_zh.md)
 
