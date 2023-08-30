@@ -31,7 +31,7 @@ space-web is developed using JavaScript and utilizes technologies such as Vue3, 
 2. Enter the space-web directory `cd ./space-web`.
 3. Install dependencies by running `npm install`.
 4. Run `npm run dev` for development.
-6. This project is the web component of AO.space, and the server-side interface uses the [space-gateway](https://github.com/ao-space/space-gateway) interface. When developing, please modify the target property in the vite-dev file in the root directory to point to the space-gateway interface address.
+5. This project is the web component of AO.space, and the server-side interface uses the [space-gateway](https://github.com/ao-space/space-gateway) interface. When developing, please modify the target property in the vite-dev file in the root directory to point to the space-gateway interface address.
 See the following image for details.
 ![Alt text](./img/image.png)
 

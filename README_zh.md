@@ -27,15 +27,23 @@ space-web 使用 javascript 开发，用到了 vue3，element-plus，axios，jse
 
 ### 开发说明
 
-1.进入到您的工作目录,运行命令 `git clone https://github.com/ao-space/space-web.git` 2.进入到 space-web 目录 `cd ./space-web` 3.安装依赖请运行 `npm install` 4.开发请运行 `npm run dev` 6.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。开发时请修改根目录下的 vite-dev 文件中的 target 属性，让其指向 space-gateway 的接口地址
+1.进入到您的工作目录,运行命令 `git clone https://github.com/ao-space/space-web.git`
+2.进入到 space-web 目录 `cd ./space-web`
+3.安装依赖请运行 `npm install`
+4.开发请运行 `npm run dev`
+5.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。开发时请修改根目录下的 vite-dev 文件中的 target 属性，让其指向 space-gateway 的接口地址
 具体见下图
 ![Alt text](./img/image.png)
 
 ### 部署说明
 
-1.确定该项目对外暴露域名及 space-gateway 接口域名 2.如果该项目对外暴露域名和 space-gateway 接口域名不一致，需 把 src/config/networkConfig.ts 中的 urlConfig 的 baseurl 改为 space-gateway 的接口域名
+1.确定该项目对外暴露域名及 space-gateway 接口域名
+2.如果该项目对外暴露域名和 space-gateway 接口域名不一致，需 把 src/config/networkConfig.ts 中的 urlConfig 的 baseurl 改为 space-gateway 的接口域名
 具体如下图
-![Alt text](./img/image-1.png) 3.在项目根目录下运行 `docker build -t space-web .` 4.将打包出的 nginx 镜像运行起来 执行命令 `docker run -d --name space-web -p 80:80 space-web` (具体的 docker 命令请参照 docker 文档)
+![Alt text](./img/image-1.png)
+
+3.在项目根目录下运行 `docker build -t space-web .`
+4.将打包出的 nginx 镜像运行起来 执行命令 `docker run -d --name space-web -p 80:80 space-web` (具体的 docker 命令请参照 docker 文档)
 
 ### 贡献指南
 
