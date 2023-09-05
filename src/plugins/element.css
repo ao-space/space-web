@@ -1,0 +1,105 @@
+/*
+ * Copyright (c) 2022 Institute of Software Chinese Academy of Sciences (ISCAS)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.el-select .el-input__wrapper {
+  background: #F5F6FA;
+  box-shadow:none;
+}
+.el-select .el-input__inner {
+  text-align: center;
+}
+.el-select-dropdown__item {
+  text-align: center;
+}
+
+.el-popper.is-customized {
+  background: #85899C;
+  color: white;
+}
+
+.el-popper.is-customized .el-popper__arrow::before {
+  background: #85899C;
+}
+
+.el-dialog__header{
+  border-bottom: thin solid #ECEEF4;
+  margin:0;
+}
+
+.el-popup-parent--hidden{
+  padding-right: 0!important;
+}
+
+.el-dialog{
+  text-align: left;
+  border-radius: 6px;
+}
+
+.el-button--default{
+  width: 100px;
+  height: 34px;
+  border-radius: 6px;
+  background: #337aff;
+  color: #fff;
+  padding: 0;
+}
+.el-button.is-plain{
+  background: #eaf1ff;
+  color: #337aff;
+}
+.el-button.is-plain:hover {
+  background: #337aff;
+  color: #fff;
+}
+.el-space__item{
+  display: inline-flex;
+}
+.el-upload-dragger{
+  padding:0;
+}
+.el-dialog__body{
+  padding: 0;
+}
+.el-main{
+  overflow: hidden;
+  --el-main-padding: 0;
+  background-color: #ffffff;
+}
+.el-loading-spinner .el-loading-text {
+  color: #85899C;
+}
+
+.messageMobile{
+  flex-direction: column;
+  --el-message-bg-color: #000000;
+  --el-message-border-color: #000000;
+  --el-message-text-color: #ffffff;
+  background-image: url("@/assets/message-error@2x.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center 17px;
+  background-origin:padding-box;
+  padding: 33px 10px 17px 10px;
+}
+.messageMobile .el-icon{
+  display: none;
+}
+.messageMobile p{
+  margin-top: 13px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 16px;
+}

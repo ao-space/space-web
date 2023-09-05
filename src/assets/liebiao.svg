@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>liebiao_1</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="文件-选择气泡窗" transform="translate(-1840.000000, -81.000000)" fill-rule="nonzero">
+            <g id="列表模式_块" transform="translate(1840.000000, 81.000000)">
+                <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="20" height="20"></rect>
+                <path d="M7.13654979,2.5 L18.125,2.5 L18.125,6.25 L7.13654979,6.25 L7.13654979,2.5 Z M7.13654979,8.125 L18.125,8.125 L18.125,11.875 L7.13654979,11.875 L7.13654979,8.125 Z M7.13654979,13.75 L18.125,13.75 L18.125,17.5 L7.13654979,17.5 L7.13654979,13.75 Z" id="形状" fill="#337AFF"></path>
+                <path d="M1.875,2.5 L5.02402588,2.5 L5.02402588,6.25 L1.875,6.25 L1.875,2.5 Z M1.875,8.125 L5.02402588,8.125 L5.02402588,11.875 L1.875,11.875 L1.875,8.125 Z M1.875,13.75 L5.02402588,13.75 L5.02402588,17.5 L1.875,17.5 L1.875,13.75 Z" id="形状" fill="#337AFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
