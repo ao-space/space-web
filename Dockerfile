@@ -14,7 +14,12 @@
 
 FROM node:16.14.2 as builder
 
+WORKDIR /work
 COPY . .
+
+RUN apt update && apt install dos2unix -y && apt clean all
+RUN find . -type f -exec dos2unix {} \;
+
 RUN npm install && npm run build && npm run buildsingle
 
 FROM openresty/openresty:1.21.4.1-4-bullseye-fat
@@ -23,13 +28,13 @@ ENV TZ=Asia/Shanghai
 
 RUN rm -rf /etc/nginx/conf.d
 RUN mkdir -p /var/log/nginx/
-COPY --from=builder nginx.conf.template  /nginx.conf.template
-COPY --from=builder verify_access_token.lua /etc/nginx/verify_access_token.lua
-COPY --from=builder cert.crt /etc/nginx/certs/cert.pem
-COPY --from=builder private.key /etc/nginx/certs/cert.key
+COPY --from=builder /work/nginx.conf.template  /nginx.conf.template
+COPY --from=builder /work/verify_access_token.lua /etc/nginx/verify_access_token.lua
+COPY --from=builder /work/cert.crt /etc/nginx/certs/cert.pem
+COPY --from=builder /work/private.key /etc/nginx/certs/cert.key
 RUN mkdir -p /opt/eulixspace-web/space/ /opt/eulixspace-web/share/
-COPY --from=builder dist /opt/eulixspace-web/space
-COPY --from=builder docker-entrypoint.sh /
+COPY --from=builder /work/dist /opt/eulixspace-web/space
+COPY --from=builder /work/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
