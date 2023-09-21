@@ -129,10 +129,13 @@
           </div>
           <!-- 手机确认 -->
           <div v-if="type === 4">
-            <div class="content">
+            <div class="confirm-div">已发送确认信息到管理员绑定手机。</div>
+            <div class="content 1111">
+           
               <div class="flex flex-column x-center">
                 <div><img src="@/assets/notify-s.png" style="width: 100px; height: 100px" /></div>
                 <span class="mt30 font20 fw-b">{{ $t('safe.please_confirm') }}</span>
+                <span class="mt20 fw-b" style="color: #F6222D;">* 请先打开绑定手机的傲空间 App ，后执行此操作</span>
                 <span class="mt30 color-blue pointer" @click="bindPhoneDisable">{{ $t('safe.bound_phone_error') }}</span>
               </div>
             </div>
@@ -143,7 +146,7 @@
             v-if="type == 5 || type == 6 || type == 12 || type == 13 || type == 14 || type == 15"
           >
             <div class="ml30 font16 fw-b">{{ $t('safe.safe_password_val') }}：</div>
-            <div class="content">
+            <div class="content 2222">
               <div class="flex flex-column x-center">
                 <div>
                   <img
@@ -185,24 +188,25 @@
               <a class="help" href="https://ao.space/#/help/mail" target="_blank">{{ $t('buttons.help') }}</a>
             </el-space>
           </div>
-          <div class="ml-auto tr flex">
-            <div class="button-white ml-20" v-if="type == 7 || type == 11" @click="gotoSetp(3)">
-              {{ $t('buttons.last_step') }}
-            </div>
-            <div class="button-white ml-20" v-if="type == 9" @click="gotoSetp(1)">{{ $t('buttons.last_step') }}</div>
-            <div class="button-white ml-20" v-if="type == 3" @click="chooseType">{{ $t('buttons.next_step') }}</div>
-            <div class="button-blue ml-20" v-if="type == 2 || type == 11" @click="validatePassword">
-              {{ $t('buttons.verification') }}
-            </div>
-            <div class="button-blue ml-20" v-if="type == 1" @click="settingPassword">{{ $t('buttons.verification') }}</div>
-            <div class="button-blue ml-20" v-if="type == 10" @click="settingPassword">{{ $t('buttons.common_ok') }}</div>
-            <div
-              class="button-white ml-20"
+          <div
+              class="button-blue  ml-20"
+              style="margin:0 auto"
               v-if="type == 5 || type == 6 || type == 12 || type == 13 || type == 14 || type == 15"
               @click="close"
             >
-              {{ $t('buttons.close') }}
+              {{ $t('buttons.common_ok') }}
             </div>
+            <div class="ml-auto tr flex" v-else>
+                <div class="button-white ml-20" v-if="type == 7 || type == 11" @click="gotoSetp(3)">
+                {{ $t('buttons.last_step') }}
+                </div>
+                <div class="button-white ml-20" v-if="type == 9" @click="gotoSetp(1)">{{ $t('buttons.last_step') }}</div>
+                <div class="button-white ml-20" v-if="type == 3" @click="chooseType">{{ $t('buttons.next_step') }}</div>
+                <div class="button-blue ml-20" v-if="type == 2 || type == 11" @click="validatePassword">
+                {{ $t('buttons.verification') }}
+                </div>
+                <div class="button-blue ml-20" v-if="type == 1" @click="settingPassword">{{ $t('buttons.verification') }}</div>
+                <div class="button-blue ml-20" v-if="type == 10" @click="settingPassword">{{ $t('buttons.common_ok') }}</div>
           </div>
         </div>
       </template>
@@ -515,6 +519,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.confirm-div{
+    margin-left: 40px;margin-top: 29px;color:#85899c;font-size: 14px;
+}
 ::v-deep(.iscasInput){
   width: 300px;
 }
