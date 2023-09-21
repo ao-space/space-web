@@ -198,6 +198,8 @@ export default {
 		offline_fail: "操作失败,错误原因: {error}",
 		space_id_error: "空间标识重复，请重新输入",
 		open_source: "开源版",
+        confirm_msg:'已发送确认信息到管理员绑定手机',
+        confirm_msg_two:'请先打开绑定手机的傲空间 App ，后执行此操作'
 	},
 	safe: {
 		password_desc:
@@ -296,4 +298,5 @@ export default {
 		offline_notify: "设备离线，请检查设备或网络情况",
 		service_exception: "服务异常，请稍后重试",
 	},
+    
 }
