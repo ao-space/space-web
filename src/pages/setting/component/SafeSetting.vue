@@ -55,12 +55,6 @@
             <div class="ml30 wb">{{ $t('safe.password_desc') }}</div>
             <div class="content">
               <div style="width: 100%">
-                <el-row class="el-row-title" :gutter="10">
-                  <el-col :span="8"></el-col>
-                  <el-col :span="16"
-                    ><div class="color-red tl" v-if="passwdError">{{ passwdError }}</div></el-col
-                  >
-                </el-row>
                 <template v-if="type == 1">
                   <el-row class="el-row-title" :gutter="10">
                     <el-col :span="8">{{ $t('safe.old_password') }}</el-col>
@@ -95,9 +89,9 @@
                 </el-row>
                 <el-row class="el-row-title" :gutter="10">
                   <el-col :span="8"></el-col>
-                  <el-col :span="16">
-
-                  </el-col>
+                  <el-col :span="16"
+                    ><div class="color-red tl" v-if="passwdError" style="width: 300px;text-align: right;">{{ passwdError }}</div></el-col
+                  >
                 </el-row>
               </div>
             </div>
