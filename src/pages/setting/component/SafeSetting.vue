@@ -210,21 +210,14 @@ export default {
       isOpen: false,
       type: 2,
       title: '',
-      validateTypeEmail: true,
       validateTypePassword: false,
-      showEmailServer: false,
       oldPasswd: '',
       newPasswd: '',
       newDouPasswd: '',
       passwdErrorTimes: 0,
-      emailAccount: '',
-      emailHiddenAccount: '',
-      emailPasswd: '',
       passwdError: false,
       securityToken: '',
       emailToken: '',
-      emailConfig: { sslEnable: true },
-      emailConfigAll: {},
       clientUuidBinder: '',
       isAdmin: false,
     }
@@ -256,20 +249,14 @@ export default {
       if (this.$refs.codeComRef) {
         this.$refs.codeComRef.clear()
       }
-      this.validateTypeEmail = true
       this.validateTypePassword = false
       this.passwdError = false
       this.passwdErrorTimes = 0
-      this.showEmailServer = false
       this.securityToken = ''
       this.clientUuidBinder = ''
       this.oldPasswd = ''
       this.newPasswd = ''
       this.newDouPasswd = ''
-      this.emailAccount = ''
-      this.emailHiddenAccount = ''
-      this.emailPasswd = ''
-      this.emailConfig = { sslEnable: true }
     },
 
     bindPhoneDisable() {
@@ -304,7 +291,7 @@ export default {
             let resultList = result.results
             for (let poll of resultList) {
               if (poll.msgType.toLowerCase() === 'security_passwd_mod_accept') {
-                //直到收到 msgType==security_passwd_mod_accept 才停止循环
+
                 hasConfirm = false
                 clearTimeout(self.phoneConfirmTimes)
 
@@ -407,7 +394,6 @@ export default {
       }
     },
     validatePassword() {
-      //绑定email ，验证密码
       let self = this
       if (self.oldPasswd.length != 6) {
         self.passwdError = this.$t('safe.password_only_tip')
@@ -417,7 +403,6 @@ export default {
         target: '.dialogBody',
         text: this.$t('safe.val_tip')
       })
-      //验证passwd
       self.passwdError = false
       passwdVerify(self.oldPasswd).then(function (result) {
         self.loading.close()
@@ -453,20 +438,10 @@ export default {
     close() {
       this.isOpen = false
     },
-    chooseEmail() {
-      this.validateTypePassword = false
-      this.validateTypeEmail = true
-    },
-    choosePassword() {
-      this.validateTypePassword = true
-      this.validateTypeEmail = false
-    },
     resetPasswd() {
       let self = this
       self.passwdError = ''
-
     },
-
     chooseType() {
       let self = this
       if (self.validateTypePassword) {
@@ -475,9 +450,6 @@ export default {
     },
     gotoSetp(type) {
       this.type = type
-    },
-    inputCode(codeArr) {
-      this.oldPasswd = codeArr.join('')
     }
   }
 }
