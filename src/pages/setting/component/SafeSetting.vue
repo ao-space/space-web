@@ -96,40 +96,15 @@
               </div>
             </div>
           </div>
-          <!--效验密码-->
-          <div v-if="type === 2 || type === 11">
-            <div class="ml30 font16 fw-b">{{ $t('safe.safe_password_val') }}：</div>
-            <div class="content">
-              <div style="width: 400px">
-                <div class="mb20 color-red" v-if="passwdError">{{ passwdError }}</div>
-                <codeComponent @inputCode="inputCode" ref="codeComRef" />
-                <div class="mt20">
-                  <el-tooltip placement="bottom" effect="customized">
-                    <template #content>
-                      <div class="font14" style="line-height: 22px;width:500px;">
-                        {{ $t('safe.password_desc') }}<br />{{ $t('safe.app_scenarios') }}：<br />
-                        <li>{{ $t('safe.unbound_device') }}</li>
-                        <li>{{ $t('safe.admin_val') }}</li>
-                      </div>
-                    </template>
-                    <div class="color-grey y-center">
-                      <el-icon><WarningFilled /></el-icon>
-                      <span class='ml-5'>{{ $t('safe.password_tip') }}</span>
-                    </div>
-                  </el-tooltip>
-                </div>
-              </div>
-            </div>
-          </div>
           <!-- 手机确认 -->
           <div v-if="type === 4">
-            <div class="confirm-div">已发送确认信息到管理员绑定手机。</div>
+            <div class="confirm-div">{{ $t('setting.confirm_msg') }}。</div>
             <div class="content 1111">
            
               <div class="flex flex-column x-center">
                 <div><img src="@/assets/notify-s.png" style="width: 100px; height: 100px" /></div>
                 <span class="mt30 font20 fw-b">{{ $t('safe.please_confirm') }}</span>
-                <span class="mt20 fw-b" style="color: #F6222D;">* 请先打开绑定手机的傲空间 App ，后执行此操作</span>
+                <span class="mt20 fw-b" style="color: #F6222D;">* {{ $t('setting.confirm_msg_two') }} </span>
                 <span class="mt30 color-blue pointer" @click="bindPhoneDisable">{{ $t('safe.bound_phone_error') }}</span>
               </div>
             </div>
@@ -272,7 +247,7 @@ export default {
     init() {
       if (this.mode == 'changePassword') {
         this.title = this.$t('safe.change_password')
-        this.type = 4
+        this.type = 2
         this.sendPhoneConfirm()
       }
       this.reset()
@@ -350,12 +325,7 @@ export default {
         })
       }, 2000)
     },
-    isNotEmail(val) {
-      let emailPat = /^(.+)@(.+)$/
-      let result = val.match(emailPat)
-      console.log(result)
-      return result == null
-    },
+
     isIntNum(val) {
       let reg = /^\d+$/
       let pattern = new RegExp(reg)

@@ -206,6 +206,8 @@ export default {
 		offline_fail: "Operation Failed, error reason: {error}",
 		space_id_error: "The space ID is duplicate, please re-enter",
 		open_source: "Open Source",
+        confirm_msg:'Confirmed message sent to administrator binding phone',
+        confirm_msg_two:'Please open the Ao.space App that binds your phone first, and then perform this operation'
 	},
 	safe: {
 		password_desc:
