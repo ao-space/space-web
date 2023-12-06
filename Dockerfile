@@ -22,7 +22,9 @@ RUN find . -type f -exec dos2unix {} \;
 
 RUN npm install && npm run build && npm run buildsingle
 
-FROM openresty/openresty:1.21.4.1-4-bullseye-fat
+FROM xfan1024/openeuler:23.03-light
+
+RUN yum install openresty -y
 
 ENV TZ=Asia/Shanghai
 
