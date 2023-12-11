@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:16.14.2 as builder
+FROM --platform=linux/amd64 node:16.14.2 as builder
 
 WORKDIR /work
 COPY . .
