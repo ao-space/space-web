@@ -55,12 +55,6 @@
             <div class="ml30 wb">{{ $t('safe.password_desc') }}</div>
             <div class="content">
               <div style="width: 100%">
-                <el-row class="el-row-title" :gutter="10">
-                  <el-col :span="8"></el-col>
-                  <el-col :span="16"
-                    ><div class="color-red tl" v-if="passwdError">{{ passwdError }}</div></el-col
-                  >
-                </el-row>
                 <template v-if="type == 1">
                   <el-row class="el-row-title" :gutter="10">
                     <el-col :span="8">{{ $t('safe.old_password') }}</el-col>
@@ -95,44 +89,22 @@
                 </el-row>
                 <el-row class="el-row-title" :gutter="10">
                   <el-col :span="8"></el-col>
-                  <el-col :span="16">
-
-                  </el-col>
+                  <el-col :span="16"
+                    ><div class="color-red tl" v-if="passwdError" style="width: 300px;text-align: right;">{{ passwdError }}</div></el-col
+                  >
                 </el-row>
-              </div>
-            </div>
-          </div>
-          <!--效验密码-->
-          <div v-if="type === 2 || type === 11">
-            <div class="ml30 font16 fw-b">{{ $t('safe.safe_password_val') }}：</div>
-            <div class="content">
-              <div style="width: 400px">
-                <div class="mb20 color-red" v-if="passwdError">{{ passwdError }}</div>
-                <codeComponent @inputCode="inputCode" ref="codeComRef" />
-                <div class="mt20">
-                  <el-tooltip placement="bottom" effect="customized">
-                    <template #content>
-                      <div class="font14" style="line-height: 22px;width:500px;">
-                        {{ $t('safe.password_desc') }}<br />{{ $t('safe.app_scenarios') }}：<br />
-                        <li>{{ $t('safe.unbound_device') }}</li>
-                        <li>{{ $t('safe.admin_val') }}</li>
-                      </div>
-                    </template>
-                    <div class="color-grey y-center">
-                      <el-icon><WarningFilled /></el-icon>
-                      <span class='ml-5'>{{ $t('safe.password_tip') }}</span>
-                    </div>
-                  </el-tooltip>
-                </div>
               </div>
             </div>
           </div>
           <!-- 手机确认 -->
           <div v-if="type === 4">
-            <div class="content">
+            <div class="confirm-div">{{ $t('setting.confirm_msg') }}。</div>
+            <div class="content 1111">
+           
               <div class="flex flex-column x-center">
                 <div><img src="@/assets/notify-s.png" style="width: 100px; height: 100px" /></div>
                 <span class="mt30 font20 fw-b">{{ $t('safe.please_confirm') }}</span>
+                <span class="mt20 fw-b" style="color: #F6222D;">* {{ $t('setting.confirm_msg_two') }} </span>
                 <span class="mt30 color-blue pointer" @click="bindPhoneDisable">{{ $t('safe.bound_phone_error') }}</span>
               </div>
             </div>
@@ -143,7 +115,7 @@
             v-if="type == 5 || type == 6 || type == 12 || type == 13 || type == 14 || type == 15"
           >
             <div class="ml30 font16 fw-b">{{ $t('safe.safe_password_val') }}：</div>
-            <div class="content">
+            <div class="content 2222">
               <div class="flex flex-column x-center">
                 <div>
                   <img
@@ -185,24 +157,25 @@
               <a class="help" href="https://ao.space/#/help/mail" target="_blank">{{ $t('buttons.help') }}</a>
             </el-space>
           </div>
-          <div class="ml-auto tr flex">
-            <div class="button-white ml-20" v-if="type == 7 || type == 11" @click="gotoSetp(3)">
-              {{ $t('buttons.last_step') }}
-            </div>
-            <div class="button-white ml-20" v-if="type == 9" @click="gotoSetp(1)">{{ $t('buttons.last_step') }}</div>
-            <div class="button-white ml-20" v-if="type == 3" @click="chooseType">{{ $t('buttons.next_step') }}</div>
-            <div class="button-blue ml-20" v-if="type == 2 || type == 11" @click="validatePassword">
-              {{ $t('buttons.verification') }}
-            </div>
-            <div class="button-blue ml-20" v-if="type == 1" @click="settingPassword">{{ $t('buttons.verification') }}</div>
-            <div class="button-blue ml-20" v-if="type == 10" @click="settingPassword">{{ $t('buttons.common_ok') }}</div>
-            <div
-              class="button-white ml-20"
+          <div
+              class="button-blue  ml-20"
+              style="margin:0 auto"
               v-if="type == 5 || type == 6 || type == 12 || type == 13 || type == 14 || type == 15"
               @click="close"
             >
-              {{ $t('buttons.close') }}
+              {{ $t('buttons.common_ok') }}
             </div>
+            <div class="ml-auto tr flex" v-else>
+                <div class="button-white ml-20" v-if="type == 7 || type == 11" @click="gotoSetp(3)">
+                {{ $t('buttons.last_step') }}
+                </div>
+                <div class="button-white ml-20" v-if="type == 9" @click="gotoSetp(1)">{{ $t('buttons.last_step') }}</div>
+                <div class="button-white ml-20" v-if="type == 3" @click="chooseType">{{ $t('buttons.next_step') }}</div>
+                <div class="button-blue ml-20" v-if="type == 2 || type == 11" @click="validatePassword">
+                {{ $t('buttons.verification') }}
+                </div>
+                <div class="button-blue ml-20" v-if="type == 1" @click="settingPassword">{{ $t('buttons.verification') }}</div>
+                <div class="button-blue ml-20" v-if="type == 10" @click="settingPassword">{{ $t('buttons.common_ok') }}</div>
           </div>
         </div>
       </template>
@@ -237,21 +210,14 @@ export default {
       isOpen: false,
       type: 2,
       title: '',
-      validateTypeEmail: true,
       validateTypePassword: false,
-      showEmailServer: false,
       oldPasswd: '',
       newPasswd: '',
       newDouPasswd: '',
       passwdErrorTimes: 0,
-      emailAccount: '',
-      emailHiddenAccount: '',
-      emailPasswd: '',
       passwdError: false,
       securityToken: '',
       emailToken: '',
-      emailConfig: { sslEnable: true },
-      emailConfigAll: {},
       clientUuidBinder: '',
       isAdmin: false,
     }
@@ -274,7 +240,7 @@ export default {
     init() {
       if (this.mode == 'changePassword') {
         this.title = this.$t('safe.change_password')
-        this.type = 4
+        this.type = 2
         this.sendPhoneConfirm()
       }
       this.reset()
@@ -283,20 +249,14 @@ export default {
       if (this.$refs.codeComRef) {
         this.$refs.codeComRef.clear()
       }
-      this.validateTypeEmail = true
       this.validateTypePassword = false
       this.passwdError = false
       this.passwdErrorTimes = 0
-      this.showEmailServer = false
       this.securityToken = ''
       this.clientUuidBinder = ''
       this.oldPasswd = ''
       this.newPasswd = ''
       this.newDouPasswd = ''
-      this.emailAccount = ''
-      this.emailHiddenAccount = ''
-      this.emailPasswd = ''
-      this.emailConfig = { sslEnable: true }
     },
 
     bindPhoneDisable() {
@@ -331,7 +291,7 @@ export default {
             let resultList = result.results
             for (let poll of resultList) {
               if (poll.msgType.toLowerCase() === 'security_passwd_mod_accept') {
-                //直到收到 msgType==security_passwd_mod_accept 才停止循环
+
                 hasConfirm = false
                 clearTimeout(self.phoneConfirmTimes)
 
@@ -352,12 +312,7 @@ export default {
         })
       }, 2000)
     },
-    isNotEmail(val) {
-      let emailPat = /^(.+)@(.+)$/
-      let result = val.match(emailPat)
-      console.log(result)
-      return result == null
-    },
+
     isIntNum(val) {
       let reg = /^\d+$/
       let pattern = new RegExp(reg)
@@ -439,7 +394,6 @@ export default {
       }
     },
     validatePassword() {
-      //绑定email ，验证密码
       let self = this
       if (self.oldPasswd.length != 6) {
         self.passwdError = this.$t('safe.password_only_tip')
@@ -449,7 +403,6 @@ export default {
         target: '.dialogBody',
         text: this.$t('safe.val_tip')
       })
-      //验证passwd
       self.passwdError = false
       passwdVerify(self.oldPasswd).then(function (result) {
         self.loading.close()
@@ -485,20 +438,10 @@ export default {
     close() {
       this.isOpen = false
     },
-    chooseEmail() {
-      this.validateTypePassword = false
-      this.validateTypeEmail = true
-    },
-    choosePassword() {
-      this.validateTypePassword = true
-      this.validateTypeEmail = false
-    },
     resetPasswd() {
       let self = this
       self.passwdError = ''
-
     },
-
     chooseType() {
       let self = this
       if (self.validateTypePassword) {
@@ -507,14 +450,14 @@ export default {
     },
     gotoSetp(type) {
       this.type = type
-    },
-    inputCode(codeArr) {
-      this.oldPasswd = codeArr.join('')
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.confirm-div{
+    margin-left: 40px;margin-top: 29px;color:#85899c;font-size: 14px;
+}
 ::v-deep(.iscasInput){
   width: 300px;
 }
