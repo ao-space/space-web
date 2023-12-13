@@ -34,7 +34,7 @@ space-web 使用 javascript 开发，用到了 vue3，element-plus，axios，jse
 2.进入到 space-web 目录 `cd ./space-web`
 3.安装依赖请运行 `npm install`
 4.开发请运行 `npm run dev`
-5.本项目是傲空间的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。开发时请修改根目录下的 vite-dev 文件中的 target 属性，让其指向 space-gateway 的接口地址
+5.本项目是 AO.space 的 web 端，服务端接口用的是[space-gateway](https://github.com/ao-space/space-gateway)接口。开发时请修改根目录下的 vite-dev 文件中的 target 属性，让其指向 space-gateway 的接口地址
 具体见下图
 ![Alt text](./img/image.png)
 
