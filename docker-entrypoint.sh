@@ -18,9 +18,9 @@
 set -e
 
 if [ "x$APP_RUN_NETWORK_MODE" == "xbridge" ] ; then
-    GATEWAY_HOST="aospace-gateway.ao-space"
-    FILEAPI_HOST="aospace-fileapi.ao-space"
-    MEDIA_VOD_HOST="aospace-media-vod.ao-space"
+    GATEWAY_HOST="aospace-gateway"
+    FILEAPI_HOST="aospace-fileapi"
+    MEDIA_VOD_HOST="aospace-media-vod"
     sed -i "s/#resolver/resolver/g" /nginx.conf.template
 else
     GATEWAY_HOST="127.0.0.1"

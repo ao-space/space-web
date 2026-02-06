@@ -6,6 +6,9 @@
     "build": "vite build",
     "preview": "vite preview --port 8080",
     "buildsingle": "vite --version",
+    "test": "npm run test:unit",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -56,6 +59,7 @@
     "patch-package": "^6.5.1",
     "prettier": "2.3.1",
     "sass": "1.35.2",
+    "vitest": "^1.6.0",
     "vconsole": "3.9.1",
     "vite": "v2.9.12",
     "vue-cropper": "^1.0.3",

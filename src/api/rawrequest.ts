@@ -20,6 +20,7 @@
 import { post } from './network.js'
 import { RealCallRequest, FileParam } from './model'
 import { urlConfig } from '@/config/networkConfig'
+import { createGatewayCallRequest } from './gateway.call.helpers'
 let baseUrl = urlConfig.baseUrl
 
 // let baseUrl = ''
@@ -28,12 +29,11 @@ let baseUrl = urlConfig.baseUrl
  * 文件列表
  */
 export function queryFilelistRaw(fileParam: FileParam) {
-  let params: RealCallRequest<FileParam, any> = {
+  let params: RealCallRequest<FileParam, any> = createGatewayCallRequest<FileParam>({
     queries: fileParam,
-    apiVersion: 'v1',
     apiName: 'list_folders',
-    serviceName: 'eulixspace-file-service',
-  }
+    serviceName: 'eulixspace-file-service'
+  })
   return post(`${baseUrl}/space/v1/api/gateway/call`, params)
 }
 
@@ -41,15 +41,14 @@ export function queryFilelistRaw(fileParam: FileParam) {
  * 回收站列表
  */
 export function queryRecyclelistRaw() {
-  let params: RealCallRequest<any, any> = {
+  let params: RealCallRequest<any, any> = createGatewayCallRequest({
     queries: {
       page: 1,
       pageSize: 100000,
     },
-    apiVersion: 'v1',
     apiName: 'list_recycled',
     serviceName: 'eulixspace-file-service',
-  }
+  })
   return post(`${baseUrl}/space/v1/api/gateway/call`, params)
 }
 

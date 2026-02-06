@@ -18,6 +18,8 @@ import { isDev } from '@/utils/help'
 import eventBus from '@/utils/eventbus'
 import { keyMap } from '@/utils/constant'
 import { getDevConfig } from '@/../vite-dev'
+import { logger } from '@/utils/logger'
+import { extractRedirectOrigin } from '@/api/network.helpers'
 
 /**
  * 不需要加密的url
@@ -98,11 +100,14 @@ export function deal307Event(responseURL, config) {
     return
   }
   if (!flag307) {
-    const origin = window.location.origin
-    const newUrl = new URL(responseURL)
-    let newOrigin = newUrl.origin
-    if (origin != newOrigin) {
-      console.log(config)
+    const currentOrigin = window.location.origin
+    const newOrigin = extractRedirectOrigin(currentOrigin, responseURL)
+    if (newOrigin) {
+      logger.info('detected 307 target origin switch', {
+        from: currentOrigin,
+        to: newOrigin,
+        requestUrl: config?.url
+      })
       flag307 = true
       eventBus.$emit(keyMap.eventOf307, { origin: newOrigin })
     }

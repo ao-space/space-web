@@ -39,6 +39,7 @@ import {
 } from './sequelUpHelp'
 
 import networkListener from '@/album/NetworkListener'
+import { logger } from '@/utils/logger'
 
 const chunkSize = 1024 * 1024 * 2 * 2 // 4M
 
@@ -175,7 +176,7 @@ async function SequelfileUploadUtil(
         // 取消之后的任务
         uploadController.stop()
       } catch (e) {
-        console.log(e, '9090')
+        logger.error('upload fail callback exception', e)
       }
     }
 
@@ -221,7 +222,7 @@ async function SequelfileUploadUtil(
       // e.response.code == 500 等待3秒钟在传下一个
 
       setTimeout(() => {
-        console.error(e)
+        logger.error('upload create request failed', e)
         next()
         downOptions.fail(e)
       }, 2000)
@@ -233,7 +234,8 @@ async function SequelfileUploadUtil(
   return {
     cancel: (status, uploadId) => {
       if (status == 1 && uploadId) {
-        console.log('multipardelete ', multiparDelete(uploadId))
+        logger.info('multipart delete when cancel upload', { uploadId })
+        multiparDelete(uploadId)
       }
       // 通知btag相同的文件,可以进行上传了
       resolve()
@@ -276,8 +278,13 @@ function dealTaskResultAndCreateUpFn(paramsArray, downOptions: DownOptions, beta
     if (res.code == 200) {
       totalSuccess(null, res, num)
     } else {
-      console.error(fileName, 'betag:', betag, 'uploadId', uploadId, '原因:', res)
-      console.error(`isHttp:${isHttp}`)
+      logger.error('merge uploaded parts failed', {
+        fileName,
+        betag,
+        uploadId,
+        isHttp,
+        response: res
+      })
       totalFail(res)
     }
   }
@@ -365,7 +372,12 @@ function createUploadFileFn(upTaskParams: UpTaskParams) {
         }
       }
 
-      console.log('file params', sequelUploadParams)
+      logger.debug('multipart upload chunk params', {
+        uploadId,
+        index: i,
+        start,
+        end
+      })
 
       // 尝试合并及调用下一个上传函数
       const tryMergeAllPartFile = () => {
@@ -400,7 +412,13 @@ function createUploadFileFn(upTaskParams: UpTaskParams) {
             invokeNextFn()
           } catch (failInfo) {
             // console.timeEnd(flag)
-            console.log('fail:', failInfo)
+            logger.warn('multipart chunk upload failed', {
+              uploadId,
+              start,
+              end,
+              retryCount,
+              failInfo
+            })
             if (failInfo && (failInfo.code == 1037 || failInfo.code == 1013)) {
               // 分片范围已上传,文件已存在,代表当前分配已成功上传
               // 尝试调用合并文件
@@ -410,11 +428,11 @@ function createUploadFileFn(upTaskParams: UpTaskParams) {
               // 如果上传失败了,并且重试次数为0,直接失败
               const { start, end } = sequelUploadParamsInner
               if (retryCount === 0) {
-                console.log('上传文件:', start, '-', end, '失败')
+                logger.error('multipart chunk upload exhausted retries', { uploadId, start, end, failInfo })
                 totalFail(failInfo)
               } else {
                 // 默认是http 兜底
-                console.log('改为http兜底', start, '-', end)
+                logger.warn('multipart chunk retry with fallback', { uploadId, start, end, retryCount })
                 upFileFn(sequelUploadParamsInner, retryCount - 1)
               }
             }
