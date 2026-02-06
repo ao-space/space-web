@@ -97,6 +97,7 @@ import IscasInput from "@/components/IscasInput.vue"
 import IscasButton from "@/components/IscasButton.vue"
 import { ElMessage } from "element-plus"
 import networkListener from "@/album/NetworkListener"
+import { logger } from "@/utils/logger"
 
 let bkeyInterval, pollInterval
 
@@ -163,7 +164,7 @@ export default {
 		},
 		pollBkey() {
 			loginUtils.pollBkeyByLan(this.bkey).then((data) => {
-				console.log("pollBkey", data)
+				logger.debug("poll bkey result", data)
 
 				if (data.code === "GW-200" && data.results.result !== false) {
 					clearInterval(bkeyInterval)
@@ -173,7 +174,7 @@ export default {
 			})
 		},
 		gotoIp(data) {
-			console.log("gotoIp", data)
+			logger.info("goto target host", data)
 
 			networkListener
 				.ping(data.lanDomain, data.port, data.tlsPort)

@@ -1,7 +1,7 @@
 user  root;
 worker_processes  auto;
 
-error_log  logs/error.log  notice ;
+error_log  /dev/stderr  notice ;
 pid        logs/nginx.pid;
 
 
@@ -26,7 +26,7 @@ http {
 
     #resolver 127.0.0.11 valid=1s ipv6=off;
 
-    access_log  logs/access.log  main;
+    access_log  /dev/stdout  main;
 
     limit_conn_zone $server_name zone=perserver:10m;
 

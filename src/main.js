@@ -43,6 +43,7 @@ app.directive("request",loading);
 import * as Sentry from '@sentry/vue'
 import { Integrations } from '@sentry/tracing'
 import { noLoginUrlArr } from '@/config/routerConfig'
+import { logger } from '@/utils/logger'
 const hostname = window.location.hostname
 if (hostname.indexOf('.ao.space') > -1) {
   Sentry.init({
@@ -95,6 +96,14 @@ app.directive('rect', {
       fn(el, rect)
     }
   }
+})
+
+app.config.errorHandler = (error, _instance, info) => {
+  logger.error('vue runtime error', { error, info })
+}
+
+window.addEventListener('unhandledrejection', (event) => {
+  logger.error('unhandled rejection', event.reason)
 })
 
 app.use(i18n).use(router).use(store).mount('#app')

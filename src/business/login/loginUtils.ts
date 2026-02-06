@@ -19,6 +19,7 @@ import { getAoidFormLoginInfo } from '@/auth/index'
 import SparkMD5 from 'spark-md5'
 import { postMessageToIframe } from '@/utils/iframeUtils'
 import { Cookie } from '@/utils/help'
+import { logger } from '@/utils/logger'
 
 
 
@@ -136,7 +137,7 @@ export function genNocryToken() {
   const eluoxaeskey = localStorage.getItem('eluoxaeskey')
   spark.append(`${aoid}-bp-${eluoxaeskey}`)
   const token = spark.end(false)
-  console.log('token', token)
+  logger.debug('generated non-crypt token', { aoid, hasToken: !!token })
   const result = `${aoid}-${token.length > 20 ? token.slice(0, 20) : token}`
   // @ts-ignore
   genNocryToken.__cryToken = result
@@ -164,7 +165,7 @@ export function setUrlClientUUid(url){
     const client_uuid = Cookie.get('client_uuid')
 
     postMessageToIframe(`${url}/space/webrtc/loginInfo.html`, { client_uuid }).then((res) => {
-      console.log(`${url} cookie client_uuid 成功`)
+      logger.debug('sync client_uuid to iframe success', { url, hasClientUuid: !!client_uuid })
     })
 
 }
@@ -175,7 +176,6 @@ export function setUrlClientUUid(url){
 export function getBoxInfo() {
   return JSON.parse(localStorage.getItem(keyMap.boxLanInfo))
 }
-
 
 
 

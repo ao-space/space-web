@@ -42,6 +42,7 @@ import { errorCodeMap, keyMap } from '@/utils/constant'
 import Vconsole from 'vconsole'
 import { loginUtils } from '@/api/LoginUtils'
 import { setLanguage } from '@/language/index.js'
+import { logger } from '@/utils/logger'
 
 let time = 0
 export default {
@@ -141,10 +142,10 @@ export default {
           params = { ...params, terminalType: 'web', terminalMode: myBrowser(), clientUUID: encryptor.encrypt(clientUUID) }
         }
 
-        console.log('请求verify接口参数=====>', params)
+        logger.debug('login verify request', { hasSpaceId: !!spaceId, hasNativeMessage: !!window.__nativeMessage })
         res = await loginUtils.bKeyVerify(params)
-        console.log("login res",res)
-        console.log("hostname",window.location.hostname)
+        logger.debug('login verify response', { code: res?.code })
+        logger.debug('login hostname', { hostname: window.location.hostname })
 
         if (res.code === 'GW-200') {
           const encryptAuthResult = res.results
@@ -190,15 +191,15 @@ export default {
             window.location.href = window.location.origin + window.location.pathname
           }
         } else {
-          console.log("login error",res)
+          logger.warn('login verify rejected', res)
           this.errorMsg = errorCodeMap[res.code] || res.message
           this.$refs.codeComRef.clear()
         }
       } catch (e) {
-        console.log("catch error",e)
+        logger.error('login verify exception', e)
         this.$refs.codeComRef.clear()
         const { response } = e
-        console.log(response)
+        logger.warn('login verify error response', response)
         if (response) {
           const code = response.data && response.data.code || response.status
           sessionStorage.setItem('code-error', JSON.stringify(response))

@@ -18,6 +18,8 @@
 import { keyMap } from '../../utils/constant'
 import { setLoginInfo } from '../../auth'
 import {Cookie} from '@/utils/help'
+import { logger } from '@/utils/logger'
+import { isSwitchLoginQueryValid } from './switchLogin.helpers'
 
 export default {
   name: 'SwitchLogin',
@@ -27,12 +29,12 @@ export default {
   mounted() {
     let { eluoxaeskey, serPubkey, language, loginInfo,client_uuid } = this.$route.query
 
-    if (!(eluoxaeskey && serPubkey && language && loginInfo)) {
-      console.log("switch error", this.$route.query)
+    if (!isSwitchLoginQueryValid(this.$route.query)) {
+      logger.warn('switch login query invalid', this.$route.query)
       this.$router.push('/qrLogin')
       return
     }
-    console.log("switch succee")
+    logger.info('switch login query accepted')
     localStorage.setItem(keyMap.serPubkey, serPubkey)
     localStorage.setItem(keyMap.language, language)
     localStorage.setItem(keyMap.clientUUID,client_uuid)

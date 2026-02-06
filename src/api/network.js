@@ -35,6 +35,8 @@ import {
   deal307Event
 } from '@/config/networkConfig'
 import { keyMap } from '@/utils/constant'
+import { logger } from '@/utils/logger'
+import { appendTimestampParam, buildQueryUrl, classifyRequestError } from '@/api/network.helpers'
 
 if(!isDev()){
     axios.defaults.withCredentials = true
@@ -81,7 +83,7 @@ async function refreshAccessToken(resolve) {
     let [secretKey] = await Promise.all([decryptBussisSerkey(result.encryptedSecret, secret)])
     setLoginInfo(result, secretKey)
   } catch (error) {
-    console.log(error)
+    logger.warn('refresh access token failed', error)
   } finally {
     resolve()
   }
@@ -91,9 +93,10 @@ async function refreshAccessToken(resolve) {
  * refresh 接口
  */
 export async function switchNetworkAndAutoLogin(refreshToken,serPubkey) {
-
-    console.log("refreshToken",refreshToken)
-    console.log("serPubkey",serPubkey)
+    logger.info('switch network auto login start', {
+      hasRefreshToken: !!refreshToken,
+      hasServerPublicKey: !!serPubkey
+    })
 
 
     let params = { refreshToken }
@@ -110,12 +113,12 @@ export async function switchNetworkAndAutoLogin(refreshToken,serPubkey) {
         )}`,
         params
       )
-      console.log("result",result)
+      logger.debug('switch network auto login success', { requestId: result?.requestId })
       let [secretKey] = await Promise.all([decryptBussisSerkey(result.encryptedSecret, secret)])
       setLoginInfo(result, secretKey)
       return true
     } catch (error) {
-      console.log(error)
+      logger.warn('switch network auto login failed', error)
       return false
     }
 }
@@ -217,21 +220,13 @@ export async function request(url, data, config, method) {
   })
   let res
   try {
-    if (url.indexOf('?') > 0) {
-      url += '&t=' + new Date().getTime()
-    } else {
-      url += '?t=' + new Date().getTime()
-    }
+    url = appendTimestampParam(url, Date.now())
 
     if (method === 'post') {
       res = await axios.post(url, params, config)
     } else {
-      let tmp = ''
-      for (let key in params) {
-        tmp = `${key}=${params[key]}&${tmp}`
-      }
-      url = tmp ? `${url}&${tmp}` : url
-      res = await axios.get(url, config)
+      const getUrl = buildQueryUrl(url, params)
+      res = await axios.get(getUrl, config)
     }
     // 需加密
     if (needCrypt) {
@@ -240,9 +235,8 @@ export async function request(url, data, config, method) {
       let debug = localStorage.getItem('debug')
       if (__rawData && __rawData.apiName != 'download_thumbnails') {
         if (debug == '2') {
-          console.log('加密之前参数:', __rawData)
-          console.log('解密之后返回:', body)
-          console.log('\n')
+          logger.debug('network encrypted request', __rawData)
+          logger.debug('network decrypted response', body)
         }
       }
 
@@ -260,17 +254,13 @@ export async function request(url, data, config, method) {
     }
   } catch (e) {
     reject(e)
-    // todo 这里需要判断错误码 GW-403 需要重新登录
-    if (
-      e?.response?.data?.code === 'GW-403' ||
-      e?.response?.data?.code === 'GW-4015' ||
-      e?.response?.data?.code === 4015
-    ) {
+    const action = classifyRequestError(e)
+    if (action === 'force_relogin') {
       // 有下线通知弹框 或者注销弹框 不自动退出,让其手动点确认
       if (!getShowOutDialogType()) {
         clearLoginInfoAndgoSpace()
       }
-    } else if (e.response && e.response.status == 460) {
+    } else if (action === 'show_460') {
       if (!flag460) {
         ElMessage({
           message: '登录空间失败，管理员将空间平台切换到新地址，请联系管理员重新邀请后再使用',
@@ -283,6 +273,12 @@ export async function request(url, data, config, method) {
         flag460 = true
       }
     } else {
+      logger.warn('request failed', {
+        requestUrl: url,
+        method,
+        code: e?.response?.data?.code,
+        status: e?.response?.status
+      })
       let needErrorToast = !errorDealSelfArray.some((element) => {
         return url.indexOf(element) > -1
       })
